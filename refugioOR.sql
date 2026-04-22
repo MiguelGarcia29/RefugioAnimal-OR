@@ -14,18 +14,17 @@ DROP TYPE Tipo_Vacuna FORCE;
 
 -- 4. Eliminar la secuencia
 DROP SEQUENCE seq_id_animal;
-
-
-
+DROP SEQUENCE seq_vacuna;
 
 CREATE SEQUENCE seq_id_animal START WITH 1 INCREMENT BY 1 MAXVALUE 9999999999;
+CREATE SEQUENCE seq_vacuna START WITH 1 INCREMENT BY 1 MAXVALUE 9999999999;
+
 /
 
 CREATE TYPE Tipo_Vacuna AS OBJECT(
     id NUMBER,
     nombre VARCHAR2(50),
-    esEsencial CHAR(1), 
-    especie VARCHAR2(10)
+    esEsencial CHAR(1)
 );
 /
 
@@ -48,11 +47,13 @@ CREATE TYPE Tipo_Animal AS OBJECT(
     id NUMBER,
     nombre VARCHAR2(50),
     fechaNacimiento DATE,
+    especie VARCHAR2(50),
     raza VARCHAR2(50),
     color VARCHAR2(20),
     sexo CHAR(1),
     fechaLLegada DATE,
     caracteristicas VARCHAR2(200),
+    fechaAdopcion DATE,
     Dosis Tipo_Lista_Dosis,
     MEMBER FUNCTION edad RETURN NUMBER
 
@@ -85,17 +86,26 @@ NESTED TABLE Dosis STORE AS Lista_Dosis;
 ALTER TABLE Lista_Dosis ADD (SCOPE FOR (vacuna) IS Tabla_Vacuna);
 /
 
-CREATE TYPE Perro UNDER Tipo_Animal(
-    RPP CHAR(1) 
-);
-/
-
-CREATE TYPE Gato UNDER Tipo_Animal(
-);
-/
-
 CREATE OR REPLACE PACKAGE funcionesRefugio AS
     PROCEDURE ultimosAnimales(cantidad IN NUMBER);
+    -- INSERTA UN ANIMAL
+    PROCEDURE insertarAnimal(xxx);
+    -- AÑOS DE UN ANIMAL
+    FUNCTION edadAnimal(xxx);
+    -- ADOPTA UN ANIMAL
+    PROCEDURE adoptarAnimal(xxx);
+    --ACTUALIZA UN ANIMAL
+    PROCEDURE actualizarAnimal(xxx);
+    -- BORRA UN ANIMAL
+    PROCEDURE borrarAnimal(xxx);
+    -- SUMINISTRA UNA VACUNA
+    PROCEDURE suministrarDosis(xxx);
+    -- AÑADE UNA VACUNA
+    PROCEDURE crearVacuna(xxx);
+    -- BORRAR VACUNA
+    PROCEDURE borrarVacuna(xxx);
+    
+
 END funcionesRefugio;
 /
 
@@ -124,3 +134,7 @@ WHEN (NEW.fechaLLegada IS NULL )
 BEGIN
     NEW.fechaLLegada := SYSDATE;
 END llegaAnimal;
+/
+
+-- TRIGAR PARA VACUNAS ESENCIALES DE UN ANIMAL
+-- TRIGGER suministrarEsenciales();
