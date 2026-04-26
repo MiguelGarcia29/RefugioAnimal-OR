@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1124</width>
+    <width>1350</width>
     <height>863</height>
    </rect>
   </property>
@@ -191,8 +191,11 @@ QPushButton:hover {
     </item>
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_3">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,8">
@@ -393,6 +396,22 @@ QPushButton:hover {
                 </property>
                </widget>
               </item>
+              <item>
+               <spacer name="horizontalSpacer_16">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>50</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
              </layout>
             </widget>
            </item>
@@ -428,26 +447,9 @@ QTableWidget::item {
              <property name="alternatingRowColors">
               <bool>true</bool>
              </property>
-             <row>
-              <property name="text">
-               <string>New Row</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>New Row</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>New Row</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>New Row</string>
-              </property>
-             </row>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
              <column>
               <property name="text">
                <string>Nombre</string>
@@ -678,21 +680,9 @@ QTableWidget::item {
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
                 <column>
                  <property name="text">
                   <string>Nombre</string>
@@ -1054,26 +1044,9 @@ QTableWidget::item {
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
                 <column>
                  <property name="text">
                   <string>Nombre</string>
@@ -1225,6 +1198,11 @@ QComboBox QAbstractItemView {
                    </property>
                    <item>
                     <property name="text">
+                     <string>Sexo</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
                      <string>Macho</string>
                     </property>
                    </item>
@@ -1249,23 +1227,33 @@ QComboBox QAbstractItemView {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox_2">
+                  <widget class="QComboBox" name="input_especie">
                    <property name="maximumSize">
                     <size>
                      <width>250</width>
                      <height>250</height>
                     </size>
                    </property>
+                   <item>
+                    <property name="text">
+                     <string>Especie</string>
+                    </property>
+                   </item>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox_3">
+                  <widget class="QComboBox" name="input_raza">
                    <property name="maximumSize">
                     <size>
                      <width>250</width>
                      <height>250</height>
                     </size>
                    </property>
+                   <item>
+                    <property name="text">
+                     <string>Raza</string>
+                    </property>
+                   </item>
                   </widget>
                  </item>
                  <item>
@@ -1632,26 +1620,9 @@ QPushButton:hover {
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
                 <column>
                  <property name="text">
                   <string>ID</string>
@@ -1740,26 +1711,9 @@ QPushButton:hover {
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
                 <column>
                  <property name="text">
                   <string>Vacuna</string>
@@ -1851,26 +1805,9 @@ QPushButton:hover {
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
-                <row>
-                 <property name="text">
-                  <string>New Row</string>
-                 </property>
-                </row>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
                 <column>
                  <property name="text">
                   <string>ID</string>
@@ -1930,8 +1867,8 @@ QPushButton:hover {
   <tabstop>input_nombre</tabstop>
   <tabstop>input_sexo</tabstop>
   <tabstop>input_color</tabstop>
-  <tabstop>comboBox_2</tabstop>
-  <tabstop>comboBox_3</tabstop>
+  <tabstop>input_especie</tabstop>
+  <tabstop>input_raza</tabstop>
   <tabstop>btn_adoptar</tabstop>
   <tabstop>btn_buscarAdopcionAnimal</tabstop>
   <tabstop>btn_buscarVacunacionAnimales</tabstop>

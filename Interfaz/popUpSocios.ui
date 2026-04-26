@@ -65,13 +65,6 @@
        <number>15</number>
       </property>
       <item>
-       <widget class="QLabel" name="imagen">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLabel" name="titulo">
         <property name="text">
          <string>TextLabel</string>
@@ -101,8 +94,8 @@
 	background-color:white;
 }
 
-QLabel{
-	color: #4caf50;
+.QLabel{
+	color: #1b5e20;
 }
 
 /* --- Estilo Base para TODOS los inputs (Linea 2, Linea 3, Linea 4, Linea 5, Linea 6) --- */
@@ -165,25 +158,25 @@ QCheckBox::indicator {
 /* Cuando está marcado (Checked) */
 QCheckBox::indicator:checked {
     background-color: #1b5e20; /* Fondo verde completo */
-    image: url(assets/check_white.png); /* Necesitarás un icono de check blanco */
 }
 
-/* Hacemos que el área del botón ocupe todo el widget */
+/* Estilo del botón desplegable (la zona de clic) */
 QDateEdit::drop-down {
-    subcontrol-origin: margin;
-    subcontrol-position: center; /* Centramos el área de clic */
-    width: 1000px; /* Un ancho exagerado para que cubra todo el campo */
-    border: none;
-    background: transparent;
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 550px; /* Lo hacemos ancho para que sea fácil de clicar */
+    border-left: 1px solid #dcdcdc; /* Una rayita separadora */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+	border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
-/* Colocamos el icono de la fecha a la derecha de forma visual */
+/* Cambiar la flecha por un &quot;icono&quot; visual */
 QDateEdit::down-arrow {
-    image: url(img/calendario.png);
-    width: 20px;
-    height: 20px;
-    /* Movemos el icono a la derecha para que no estorbe al texto */
-    margin-left: 350px; 
+    image: url(Interfaz/img/calendario.png); /* Icono */
+    width: 30px;
+    height: 30px;
 }
 
 /* Estilo general del CheckBox (el texto y el espacio) */
@@ -263,7 +256,17 @@ QCheckBox::indicator:disabled {
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="label_idSocio">
+        <property name="text">
+         <string>ID:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="input_idSocio"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_nombreSocio">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -276,10 +279,17 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="input_nombreSocio"/>
+       <widget class="QLineEdit" name="input_nombreSocio">
+        <property name="maximumSize">
+         <size>
+          <width>550</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="label_apellidosSocio">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -292,10 +302,17 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="input_apellidoSocio"/>
+       <widget class="QLineEdit" name="input_apellidoSocio">
+        <property name="maximumSize">
+         <size>
+          <width>550</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="label_fechaNacimientoSocio">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -309,6 +326,12 @@ QCheckBox::indicator:disabled {
       </item>
       <item>
        <widget class="QDateEdit" name="input_fechaNacimientoSocio">
+        <property name="maximumSize">
+         <size>
+          <width>550</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="calendarPopup">
          <bool>true</bool>
         </property>

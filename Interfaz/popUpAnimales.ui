@@ -65,31 +65,6 @@
        <number>15</number>
       </property>
       <item>
-       <widget class="QLabel" name="imagen">
-        <property name="minimumSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>40</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap>Interfaz/img/huella.png</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLabel" name="titulo">
         <property name="text">
          <string>TextLabel</string>
@@ -117,6 +92,10 @@
      <property name="styleSheet">
       <string notr="true">.QFrame{
 	background-color:white;
+}
+
+.QLabel{
+	color: #1b5e20;
 }
 
 /* --- Estilo Base para TODOS los inputs (Linea 2, Linea 3, Linea 4, Linea 5, Linea 6) --- */
@@ -179,25 +158,25 @@ QCheckBox::indicator {
 /* Cuando está marcado (Checked) */
 QCheckBox::indicator:checked {
     background-color: #1b5e20; /* Fondo verde completo */
-    image: url(assets/check_white.png); /* Necesitarás un icono de check blanco */
 }
 
-/* Hacemos que el área del botón ocupe todo el widget */
+/* Estilo del botón desplegable (la zona de clic) */
 QDateEdit::drop-down {
-    subcontrol-origin: margin;
-    subcontrol-position: center; /* Centramos el área de clic */
-    width: 1000px; /* Un ancho exagerado para que cubra todo el campo */
-    border: none;
-    background: transparent;
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 500px; /* Lo hacemos ancho para que sea fácil de clicar */
+    border-left: 1px solid #dcdcdc; /* Una rayita separadora */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+	border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
-/* Colocamos el icono de la fecha a la derecha de forma visual */
+/* Cambiar la flecha por un &quot;icono&quot; visual */
 QDateEdit::down-arrow {
-    image: url(img/calendario.png);
-    width: 20px;
-    height: 20px;
-    /* Movemos el icono a la derecha para que no estorbe al texto */
-    margin-left: 350px; 
+    image: url(Interfaz/img/calendario.png); /* Icono */
+    width: 30px;
+    height: 30px;
 }
 
 /* Estilo general del CheckBox (el texto y el espacio) */
@@ -266,7 +245,7 @@ QCheckBox::indicator:disabled {
       <property name="verticalSpacing">
        <number>20</number>
       </property>
-      <item row="1" column="0">
+      <item row="2" column="0">
        <widget class="QLineEdit" name="input_nombreAnimal">
         <property name="maximumSize">
          <size>
@@ -279,27 +258,7 @@ QCheckBox::indicator:disabled {
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="input_especieAnimal">
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>16777215</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="input_razaAnimal">
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>16777215</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
+      <item row="3" column="0">
        <widget class="QLineEdit" name="input_caracteristicasAnimal">
         <property name="maximumSize">
          <size>
@@ -312,28 +271,8 @@ QCheckBox::indicator:disabled {
         </property>
        </widget>
       </item>
-      <item row="8" column="1">
-       <widget class="QCheckBox" name="input_adoptadoAnimal">
-        <property name="text">
-         <string>Adoptado</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLineEdit" name="input_idAnimal">
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="placeholderText">
-         <string>ID</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QComboBox" name="input_sexoAnimal">
+      <item row="2" column="1">
+       <widget class="QComboBox" name="input_especieAnimal">
         <property name="maximumSize">
          <size>
           <width>150</width>
@@ -342,43 +281,27 @@ QCheckBox::indicator:disabled {
         </property>
         <item>
          <property name="text">
-          <string>Macho</string>
+          <string>Especie</string>
          </property>
         </item>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QComboBox" name="input_razaAnimal">
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <item>
          <property name="text">
-          <string>Hembra</string>
+          <string>Raza</string>
          </property>
         </item>
        </widget>
       </item>
       <item row="6" column="0">
-       <widget class="QLineEdit" name="input_colorAnimal">
-        <property name="maximumSize">
-         <size>
-          <width>500</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="placeholderText">
-         <string>Color</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QLineEdit" name="input_pesoAnimal">
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="placeholderText">
-         <string>Peso</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
        <widget class="QDateEdit" name="input_fechaNacimientoAnimal">
         <property name="readOnly">
          <bool>false</bool>
@@ -404,15 +327,154 @@ QCheckBox::indicator:disabled {
         </property>
        </widget>
       </item>
-      <item row="8" column="0">
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_nacimiento">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Fecha de Nacimiento:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
        <widget class="QDateEdit" name="input_fechaAdopcionAnimal">
         <property name="styleSheet">
          <string notr="true"/>
+        </property>
+        <property name="specialValueText">
+         <string>Fecha Adopcion</string>
+        </property>
+        <property name="dateTime">
+         <datetime>
+          <hour>0</hour>
+          <minute>0</minute>
+          <second>0</second>
+          <year>1752</year>
+          <month>9</month>
+          <day>14</day>
+         </datetime>
         </property>
         <property name="calendarPopup">
          <bool>true</bool>
         </property>
        </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QLabel" name="label_adopcion">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Fecha de Adopción:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="input_pesoAnimal">
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="placeholderText">
+         <string>Peso</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QComboBox" name="input_sexoAnimal">
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <item>
+         <property name="text">
+          <string>Sexo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Macho</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Hembra</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLineEdit" name="input_colorAnimal">
+        <property name="maximumSize">
+         <size>
+          <width>500</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="placeholderText">
+         <string>Color</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLineEdit" name="input_idAnimal">
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="placeholderText">
+         <string>ID</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="1">
+       <widget class="QCheckBox" name="input_adoptadoAnimal">
+        <property name="text">
+         <string>Adoptado</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0">
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
@@ -497,6 +559,8 @@ QPushButton:pressed {
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="img/recursos.qrc"/>
+ </resources>
  <connections/>
 </ui>
