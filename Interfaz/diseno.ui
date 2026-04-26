@@ -91,7 +91,7 @@ QPushButton:hover {
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>imgs/logo_perros.webp</pixmap>
+          <pixmap>img/logo_perros.webp</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -130,46 +130,46 @@ QPushButton:hover {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="btn_animales">
          <property name="text">
           <string>Animales</string>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>imgs/huella.png</normaloff>imgs/huella.png</iconset>
+           <normaloff>img/huella.png</normaloff>img/huella.png</iconset>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="btn_socios">
          <property name="text">
           <string>Socios</string>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>imgs/persona.webp</normaloff>imgs/persona.webp</iconset>
+           <normaloff>img/persona.webp</normaloff>img/persona.webp</iconset>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="btn_adopcion">
          <property name="text">
           <string>Adopción</string>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>imgs/corazon2.webp</normaloff>imgs/corazon2.webp</iconset>
+           <normaloff>img/corazon2.webp</normaloff>img/corazon2.webp</iconset>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="btn_vacunacion">
          <property name="text">
           <string>Vacunación</string>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>imgs/salud.png</normaloff>imgs/salud.png</iconset>
+           <normaloff>img/salud.png</normaloff>img/salud.png</iconset>
          </property>
         </widget>
        </item>
@@ -192,7 +192,7 @@ QPushButton:hover {
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_3">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,8">
@@ -252,7 +252,7 @@ QPushButton:hover {
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>imgs/huella.png</pixmap>
+              <pixmap>img/huella.png</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -337,13 +337,13 @@ QPushButton:hover {
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
-               <widget class="QPushButton" name="pushButton_5">
+               <widget class="QPushButton" name="btn_buscarAnimales">
                 <property name="text">
                  <string>BUSCAR</string>
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>imgs/lupa.png</normaloff>imgs/lupa.png</iconset>
+                  <normaloff>img/lupa.png</normaloff>img/lupa.png</iconset>
                 </property>
                </widget>
               </item>
@@ -361,35 +361,35 @@ QPushButton:hover {
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_6">
+               <widget class="QPushButton" name="btn_anadirAnimales">
                 <property name="text">
                  <string>Añadir Animal</string>
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>imgs/anadir.png</normaloff>imgs/anadir.png</iconset>
+                  <normaloff>img/anadir.png</normaloff>img/anadir.png</iconset>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_7">
+               <widget class="QPushButton" name="btn_editarAnimales">
                 <property name="text">
                  <string>Editar Animal</string>
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>imgs/editar.png</normaloff>imgs/editar.png</iconset>
+                  <normaloff>img/editar.png</normaloff>img/editar.png</iconset>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_8">
+               <widget class="QPushButton" name="btn_eliminarAnimales">
                 <property name="text">
                  <string>Eliminar Animal</string>
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>imgs/borrar.png</normaloff>imgs/borrar.png</iconset>
+                  <normaloff>img/borrar.png</normaloff>img/borrar.png</iconset>
                 </property>
                </widget>
               </item>
@@ -397,7 +397,7 @@ QPushButton:hover {
             </widget>
            </item>
            <item>
-            <widget class="QTableWidget" name="tableWidget">
+            <widget class="QTableWidget" name="tabla_animales">
              <property name="styleSheet">
               <string notr="true">/* Estilo general de la tabla */
 QTableWidget {
@@ -558,7 +558,7 @@ QTableWidget::item {
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>imgs/persona.webp</pixmap>
+              <pixmap>img/persona.webp</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -648,7 +648,7 @@ QTableWidget::item {
                </widget>
               </item>
               <item>
-               <widget class="QTableWidget" name="tableWidget_2">
+               <widget class="QTableWidget" name="tabla_socios">
                 <property name="styleSheet">
                  <string notr="true">QTableWidget {
 	background-color:white;
@@ -773,13 +773,13 @@ QPushButton:hover {
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_9">
+               <widget class="QPushButton" name="btn_buscarSocios">
                 <property name="text">
                  <string>BUSCAR</string>
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>imgs/lupa.png</normaloff>imgs/lupa.png</iconset>
+                  <normaloff>img/lupa.png</normaloff>img/lupa.png</iconset>
                 </property>
                </widget>
               </item>
@@ -800,35 +800,35 @@ QPushButton:hover {
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_10">
+               <widget class="QPushButton" name="btn_altaSocios">
                 <property name="text">
                  <string>Alta Socio</string>
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>imgs/anadir.png</normaloff>imgs/anadir.png</iconset>
+                  <normaloff>img/anadir.png</normaloff>img/anadir.png</iconset>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_11">
+               <widget class="QPushButton" name="btn_modificarSocios">
                 <property name="text">
                  <string>Modificar Socio</string>
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>imgs/editar.png</normaloff>imgs/editar.png</iconset>
+                  <normaloff>img/editar.png</normaloff>img/editar.png</iconset>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_12">
+               <widget class="QPushButton" name="btn_bajaSocios">
                 <property name="text">
                  <string>Baja Socio</string>
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>imgs/borrar.png</normaloff>imgs/borrar.png</iconset>
+                  <normaloff>img/borrar.png</normaloff>img/borrar.png</iconset>
                 </property>
                </widget>
               </item>
@@ -911,7 +911,7 @@ QPushButton:hover {
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>imgs/corazon2.webp</pixmap>
+              <pixmap>img/corazon2.webp</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -1024,7 +1024,7 @@ QComboBox QAbstractItemView {
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_9">
               <item>
-               <widget class="QTableWidget" name="tableWidget_3">
+               <widget class="QTableWidget" name="tabla_adopcion">
                 <property name="styleSheet">
                  <string notr="true">QTableWidget {
 	background-color:white;
@@ -1203,7 +1203,7 @@ QComboBox QAbstractItemView {
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit">
+                  <widget class="QLineEdit" name="input_nombre">
                    <property name="maximumSize">
                     <size>
                      <width>250</width>
@@ -1216,7 +1216,7 @@ QComboBox QAbstractItemView {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox">
+                  <widget class="QComboBox" name="input_sexo">
                    <property name="maximumSize">
                     <size>
                      <width>250</width>
@@ -1236,7 +1236,7 @@ QComboBox QAbstractItemView {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_2">
+                  <widget class="QLineEdit" name="input_color">
                    <property name="maximumSize">
                     <size>
                      <width>250</width>
@@ -1300,14 +1300,63 @@ QComboBox QAbstractItemView {
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>372</width>
+                     <width>40</width>
                      <height>20</height>
                     </size>
                    </property>
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_13">
+                  <widget class="QPushButton" name="btn_adoptar">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo general del botón en estado normal */
+QPushButton {
+    background-color: #2e7d32; /* Un verde más suave y oscuro, tipo &quot;Forest Green&quot; */
+    color: white; /* Texto blanco */
+    border: 1px solid #1b5e20; /* Un borde sutil aún más oscuro */
+    border-radius: 8px; /* Bordes redondeados modernos */
+    font-size: 14px;
+    font-weight: bold; /* Texto en negrita */
+    padding-top: 8px; /* &quot;Aire&quot; arriba y abajo */
+    padding-bottom: 8px;
+    padding-left: 20px; /* &quot;Aire&quot; a los lados */
+    padding-right: 20px;
+    min-width: 100px; /* Ancho mínimo para que no se encoja mucho */
+}
+
+/* Efecto al pasar el ratón (Hover) */
+QPushButton:hover {
+    background-color: #388e3c; /* Un verde un poco más claro al hacer hover */
+    border: 1px solid #2e7d32;
+}
+
+/* Efecto al hacer clic (Pressed) */
+QPushButton:pressed {
+    background-color: #1b5e20; /* Más oscuro aún cuando está pulsado */
+    padding-top: 10px; /* Efecto sutil de presión */
+    padding-bottom: 6px;
+}</string>
+                   </property>
+                   <property name="text">
+                    <string>Adoptar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_15">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btn_buscarAdopcionAnimal">
                    <property name="styleSheet">
                     <string notr="true">/* Estilo general del botón en estado normal */
 QPushButton {
@@ -1349,7 +1398,7 @@ QPushButton:pressed {
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>372</width>
+                     <width>40</width>
                      <height>20</height>
                     </size>
                    </property>
@@ -1424,7 +1473,7 @@ QPushButton:pressed {
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>imgs/salud.png</pixmap>
+              <pixmap>img/salud.png</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -1552,21 +1601,34 @@ QPushButton:hover {
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_14">
+                  <widget class="QPushButton" name="btn_buscarVacunacionAnimales">
                    <property name="text">
                     <string>Buscar</string>
                    </property>
                    <property name="icon">
                     <iconset>
-                     <normaloff>imgs/lupa.png</normaloff>imgs/lupa.png</iconset>
+                     <normaloff>img/lupa.png</normaloff>img/lupa.png</iconset>
                    </property>
                   </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_14">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
                  </item>
                 </layout>
                </widget>
               </item>
               <item>
-               <widget class="QTableWidget" name="tableWidget_4">
+               <widget class="QTableWidget" name="tabla_vacunacionAnimales">
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
@@ -1674,7 +1736,7 @@ QPushButton:hover {
                </widget>
               </item>
               <item>
-               <widget class="QTableWidget" name="tableWidget_5">
+               <widget class="QTableWidget" name="tabla_dosis">
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
@@ -1747,13 +1809,24 @@ QPushButton:hover {
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_15">
+                  <widget class="QPushButton" name="btn_anadirVacuna">
+                   <property name="text">
+                    <string>Añadir Vacuna</string>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>img/anadir.png</normaloff>img/anadir.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btn_suministraVacuna">
                    <property name="text">
                     <string>Suministrar</string>
                    </property>
                    <property name="icon">
                     <iconset>
-                     <normaloff>imgs/anadir.png</normaloff>imgs/anadir.png</iconset>
+                     <normaloff>img/jeringa.png</normaloff>img/jeringa.png</iconset>
                    </property>
                   </widget>
                  </item>
@@ -1774,7 +1847,7 @@ QPushButton:hover {
                </widget>
               </item>
               <item>
-               <widget class="QTableWidget" name="tableWidget_6">
+               <widget class="QTableWidget" name="tabla_vacunas">
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
@@ -1838,6 +1911,36 @@ QPushButton:hover {
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>btn_animales</tabstop>
+  <tabstop>btn_socios</tabstop>
+  <tabstop>btn_adopcion</tabstop>
+  <tabstop>btn_vacunacion</tabstop>
+  <tabstop>btn_buscarAnimales</tabstop>
+  <tabstop>btn_anadirAnimales</tabstop>
+  <tabstop>btn_editarAnimales</tabstop>
+  <tabstop>btn_eliminarAnimales</tabstop>
+  <tabstop>tabla_animales</tabstop>
+  <tabstop>btn_buscarSocios</tabstop>
+  <tabstop>btn_altaSocios</tabstop>
+  <tabstop>btn_modificarSocios</tabstop>
+  <tabstop>btn_bajaSocios</tabstop>
+  <tabstop>tabla_socios</tabstop>
+  <tabstop>tabla_adopcion</tabstop>
+  <tabstop>input_nombre</tabstop>
+  <tabstop>input_sexo</tabstop>
+  <tabstop>input_color</tabstop>
+  <tabstop>comboBox_2</tabstop>
+  <tabstop>comboBox_3</tabstop>
+  <tabstop>btn_adoptar</tabstop>
+  <tabstop>btn_buscarAdopcionAnimal</tabstop>
+  <tabstop>btn_buscarVacunacionAnimales</tabstop>
+  <tabstop>tabla_vacunacionAnimales</tabstop>
+  <tabstop>tabla_dosis</tabstop>
+  <tabstop>btn_anadirVacuna</tabstop>
+  <tabstop>btn_suministraVacuna</tabstop>
+  <tabstop>tabla_vacunas</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
