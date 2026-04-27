@@ -195,7 +195,7 @@ QPushButton:hover {
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="page_3">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,8">
@@ -452,6 +452,11 @@ QTableWidget::item {
              </attribute>
              <column>
               <property name="text">
+               <string>ID</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
                <string>Nombre</string>
               </property>
              </column>
@@ -472,12 +477,12 @@ QTableWidget::item {
              </column>
              <column>
               <property name="text">
-               <string>Raza</string>
+               <string>Especie</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>Peso</string>
+               <string>Raza</string>
               </property>
              </column>
              <column>
@@ -487,12 +492,12 @@ QTableWidget::item {
              </column>
              <column>
               <property name="text">
-               <string>Características</string>
+               <string>Fecha Adopción</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>Fecha Adopción</string>
+               <string>Características</string>
               </property>
              </column>
             </widget>
@@ -683,6 +688,11 @@ QTableWidget::item {
                 <attribute name="verticalHeaderVisible">
                  <bool>false</bool>
                 </attribute>
+                <column>
+                 <property name="text">
+                  <string>ID</string>
+                 </property>
+                </column>
                 <column>
                  <property name="text">
                   <string>Nombre</string>
@@ -1049,6 +1059,11 @@ QTableWidget::item {
                 </attribute>
                 <column>
                  <property name="text">
+                  <string>ID</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
                   <string>Nombre</string>
                  </property>
                 </column>
@@ -1079,12 +1094,12 @@ QTableWidget::item {
                 </column>
                 <column>
                  <property name="text">
-                  <string>Peso</string>
+                  <string>Fecha Llegada</string>
                  </property>
                 </column>
                 <column>
                  <property name="text">
-                  <string>Fecha Llegada</string>
+                  <string>Fecha Adopcion</string>
                  </property>
                 </column>
                 <column>
@@ -1635,6 +1650,11 @@ QPushButton:hover {
                 </column>
                 <column>
                  <property name="text">
+                  <string>Sexo</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
                   <string>Especie</string>
                  </property>
                 </column>
@@ -1645,12 +1665,12 @@ QPushButton:hover {
                 </column>
                 <column>
                  <property name="text">
-                  <string>Sexo</string>
+                  <string>Fecha Nacimiento</string>
                  </property>
                 </column>
                 <column>
                  <property name="text">
-                  <string>Fecha Nacimiento</string>
+                  <string>Fecha Adopcion</string>
                  </property>
                 </column>
                </widget>
@@ -1820,17 +1840,7 @@ QPushButton:hover {
                 </column>
                 <column>
                  <property name="text">
-                  <string>Descripción</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
                   <string>Esencial</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Revacunación</string>
                  </property>
                 </column>
                </widget>
