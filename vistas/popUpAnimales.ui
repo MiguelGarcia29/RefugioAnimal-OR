@@ -246,7 +246,7 @@ QCheckBox::indicator:disabled {
        <number>20</number>
       </property>
       <item row="2" column="0">
-       <widget class="QLineEdit" name="input_nombreAnimal">
+       <widget class="QLineEdit" name="input_nombre">
         <property name="maximumSize">
          <size>
           <width>500</width>
@@ -259,7 +259,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QLineEdit" name="input_caracteristicasAnimal">
+       <widget class="QLineEdit" name="input_caracteristicas">
         <property name="maximumSize">
          <size>
           <width>500</width>
@@ -272,7 +272,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QComboBox" name="input_especieAnimal">
+       <widget class="QComboBox" name="input_especie">
         <property name="maximumSize">
          <size>
           <width>150</width>
@@ -287,7 +287,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QComboBox" name="input_razaAnimal">
+       <widget class="QComboBox" name="input_raza">
         <property name="maximumSize">
          <size>
           <width>150</width>
@@ -302,7 +302,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item row="6" column="0">
-       <widget class="QDateEdit" name="input_fechaNacimientoAnimal">
+       <widget class="QDateEdit" name="input_fechaNacimiento">
         <property name="readOnly">
          <bool>false</bool>
         </property>
@@ -341,7 +341,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item row="9" column="0">
-       <widget class="QDateEdit" name="input_fechaAdopcionAnimal">
+       <widget class="QDateEdit" name="input_fechaAdopcion">
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -393,7 +393,7 @@ QCheckBox::indicator:disabled {
        </spacer>
       </item>
       <item row="7" column="1">
-       <widget class="QLineEdit" name="input_pesoAnimal">
+       <widget class="QLineEdit" name="input_peso">
         <property name="maximumSize">
          <size>
           <width>150</width>
@@ -406,7 +406,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item row="6" column="1">
-       <widget class="QComboBox" name="input_sexoAnimal">
+       <widget class="QComboBox" name="input_sexo">
         <property name="maximumSize">
          <size>
           <width>150</width>
@@ -431,7 +431,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item row="7" column="0">
-       <widget class="QLineEdit" name="input_colorAnimal">
+       <widget class="QLineEdit" name="input_color">
         <property name="maximumSize">
          <size>
           <width>500</width>
@@ -444,7 +444,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLineEdit" name="input_idAnimal">
+       <widget class="QLineEdit" name="input_id">
         <property name="maximumSize">
          <size>
           <width>150</width>
@@ -457,7 +457,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item row="9" column="1">
-       <widget class="QCheckBox" name="input_adoptadoAnimal">
+       <widget class="QCheckBox" name="input_adoptado">
         <property name="text">
          <string>Adoptado</string>
         </property>

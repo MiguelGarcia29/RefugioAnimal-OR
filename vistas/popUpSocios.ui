@@ -263,7 +263,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="input_idSocio"/>
+       <widget class="QLineEdit" name="input_id"/>
       </item>
       <item>
        <widget class="QLabel" name="label_nombreSocio">
@@ -279,7 +279,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="input_nombreSocio">
+       <widget class="QLineEdit" name="input_nombre">
         <property name="maximumSize">
          <size>
           <width>550</width>
@@ -302,7 +302,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="input_apellidoSocio">
+       <widget class="QLineEdit" name="input_apellidos">
         <property name="maximumSize">
          <size>
           <width>550</width>
@@ -325,7 +325,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item>
-       <widget class="QDateEdit" name="input_fechaNacimientoSocio">
+       <widget class="QDateEdit" name="input_fechaNacimiento">
         <property name="maximumSize">
          <size>
           <width>550</width>
