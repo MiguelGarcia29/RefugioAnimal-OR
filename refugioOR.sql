@@ -2,10 +2,6 @@
 DROP TABLE Table_Animal CASCADE CONSTRAINTS;
 DROP TABLE Tabla_Vacuna CASCADE CONSTRAINTS;
 
--- 2. Eliminar los subtipos (hijos)
-DROP TYPE Perro FORCE;
-DROP TYPE Gato FORCE;
-
 -- 3. Eliminar los tipos base (en orden inverso a sus dependencias)
 DROP TYPE Tipo_Animal FORCE;
 DROP TYPE Tipo_Lista_Dosis FORCE;
@@ -87,53 +83,129 @@ ALTER TABLE Lista_Dosis ADD (SCOPE FOR (vacuna) IS Tabla_Vacuna);
 /
 
 CREATE OR REPLACE PACKAGE funcionesRefugio AS
-    PROCEDURE ultimosAnimales(cantidad IN NUMBER);
-    -- INSERTA UN ANIMAL
-    PROCEDURE insertarAnimal(xxx);
-    -- AÑOS DE UN ANIMAL
-    FUNCTION edadAnimal(xxx);
-    -- ADOPTA UN ANIMAL
-    PROCEDURE adoptarAnimal(xxx);
-    --ACTUALIZA UN ANIMAL
-    PROCEDURE actualizarAnimal(xxx);
-    -- BORRA UN ANIMAL
-    PROCEDURE borrarAnimal(xxx);
-    -- SUMINISTRA UNA VACUNA
-    PROCEDURE suministrarDosis(xxx);
-    -- AÑADE UNA VACUNA
-    PROCEDURE crearVacuna(xxx);
-    -- BORRAR VACUNA
-    PROCEDURE borrarVacuna(xxx);
+
+    FUNCTION insertarAnimal(
+        p_nombre VARCHAR2, p_fechaNacimiento DATE, p_especie VARCHAR2, 
+        p_raza VARCHAR2, p_color VARCHAR2, p_sexo CHAR, 
+        p_fechaLlegada DATE, p_caracteristicas VARCHAR2
+    ) RETURN NUMBER;
     
+    FUNCTION edadAnimal(p_id IN NUMBER) RETURN NUMBER;
+    
+    FUNCTION adoptarAnimal(p_id IN NUMBER) RETURN NUMBER;
+    
+    FUNCTION actualizarAnimal(
+        p_id IN NUMBER, p_nombre VARCHAR2, p_fechaNacimiento DATE, 
+        p_especie VARCHAR2, p_raza VARCHAR2, p_color VARCHAR2, 
+        p_sexo CHAR, p_fechaLlegada DATE, p_caracteristicas VARCHAR2,
+        p_fechaAdopcion DATE
+    ) RETURN NUMBER;
+    
+    FUNCTION borrarAnimal(p_id IN NUMBER) RETURN NUMBER;
+
+    FUNCTION crearVacuna(p_nombre VARCHAR2, p_esEsencial CHAR) RETURN NUMBER;
+    
+    FUNCTION borrarVacuna(p_id IN NUMBER) RETURN NUMBER;
+    
+    FUNCTION suministrarDosis(p_id_animal IN NUMBER, p_id_vacuna IN NUMBER, p_fecha DATE) RETURN NUMBER;
 
 END funcionesRefugio;
 /
-
 CREATE OR REPLACE PACKAGE BODY funcionesRefugio AS
-    PROCEDURE ultimosAnimales(cantidad IN NUMBER) IS
-        CURSOR iterar IS 
-            SELECT * FROM Table_Animal ORDER BY fechaLLegada DESC;
-        fila Table_Animal%ROWTYPE;
-        iteracion NUMBER := 0;
-    BEGIN
-        OPEN iterar;
-        iteracion := iteracion + 1;
-        FETCH iterar INTO fila;
-        WHILE iteracion<=cantidad AND iterar%FOUND LOOP
-            DBMS_OUTPUT.PUT_LINE('Id: ' ||fila.id||'Nombre: ' ||fila.nombre ||'Raza: '||fila.raza);
-            iteracion := iteracion + 1;
-            FETCH iterar INTO fila;
-        END LOOP;
-        CLOSE iterar;
-    END ultimosAnimales;
-END funcionesRefugio;
 
-CREATE TRIGGER llegaAnimal 
-BEFORE INSERT ON Table_Animal
-WHEN (NEW.fechaLLegada IS NULL )
-BEGIN
-    NEW.fechaLLegada := SYSDATE;
-END llegaAnimal;
+    FUNCTION insertarAnimal(
+        p_nombre VARCHAR2, p_fechaNacimiento DATE, p_especie VARCHAR2, 
+        p_raza VARCHAR2, p_color VARCHAR2, p_sexo CHAR, 
+        p_fechaLlegada DATE, p_caracteristicas VARCHAR2
+    ) RETURN NUMBER IS
+    BEGIN
+        INSERT INTO Table_Animal VALUES (
+            seq_id_animal.NEXTVAL, p_nombre, p_fechaNacimiento, p_especie, 
+            p_raza, p_color, p_sexo, p_fechaLlegada, p_caracteristicas, 
+            NULL, Tipo_Lista_Dosis()
+        );
+        COMMIT;
+        RETURN 0;
+    EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
+    END insertarAnimal;
+
+    FUNCTION edadAnimal(p_id IN NUMBER) RETURN NUMBER IS
+        v_animal Tipo_Animal;
+    BEGIN
+        SELECT VALUE(a) INTO v_animal FROM Table_Animal a WHERE id = p_id;
+        RETURN v_animal.edad();
+    EXCEPTION WHEN OTHERS THEN RETURN -1;
+    END edadAnimal;
+
+    FUNCTION adoptarAnimal(p_id IN NUMBER) RETURN NUMBER IS
+    BEGIN
+        UPDATE Table_Animal SET fechaAdopcion = SYSDATE WHERE id = p_id;
+        IF SQL%ROWCOUNT = 0 THEN RETURN -1; END IF;
+        COMMIT;
+        RETURN 0;
+    EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
+    END adoptarAnimal;
+
+    FUNCTION actualizarAnimal(
+        p_id IN NUMBER, p_nombre VARCHAR2, p_fechaNacimiento DATE, 
+        p_especie VARCHAR2, p_raza VARCHAR2, p_color VARCHAR2, 
+        p_sexo CHAR, p_fechaLlegada DATE, p_caracteristicas VARCHAR2,
+        p_fechaAdopcion DATE
+    ) RETURN NUMBER IS
+    BEGIN
+        UPDATE Table_Animal SET 
+            nombre = p_nombre, fechaNacimiento = p_fechaNacimiento, especie = p_especie,
+            raza = p_raza, color = p_color, sexo = p_sexo, fechaLLegada = p_fechaLlegada,
+            caracteristicas = p_caracteristicas, fechaAdopcion = p_fechaAdopcion
+        WHERE id = p_id;
+        IF SQL%ROWCOUNT = 0 THEN RETURN -1; END IF;
+        COMMIT;
+        RETURN 0;
+    EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
+    END actualizarAnimal;
+
+    FUNCTION borrarAnimal(p_id IN NUMBER) RETURN NUMBER IS
+    BEGIN
+        DELETE FROM Table_Animal WHERE id = p_id;
+        IF SQL%ROWCOUNT = 0 THEN RETURN -1; END IF;
+        COMMIT;
+        RETURN 0;
+    EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
+    END borrarAnimal;
+
+    FUNCTION crearVacuna(p_nombre VARCHAR2, p_esEsencial CHAR) RETURN NUMBER IS
+    BEGIN
+        INSERT INTO Tabla_Vacuna VALUES (seq_vacuna.NEXTVAL, p_nombre, p_esEsencial);
+        COMMIT;
+        RETURN 0;
+    EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
+    END crearVacuna;
+
+    FUNCTION borrarVacuna(p_id IN NUMBER) RETURN NUMBER IS
+    BEGIN
+        DELETE FROM Tabla_Vacuna WHERE id = p_id;
+        IF SQL%ROWCOUNT = 0 THEN RETURN -1; END IF;
+        COMMIT;
+        RETURN 0;
+    EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
+    END borrarVacuna;
+
+    FUNCTION suministrarDosis(p_id_animal IN NUMBER, p_id_vacuna IN NUMBER, p_fecha DATE) RETURN NUMBER IS
+        v_ref_vacuna REF Tipo_Vacuna;
+    BEGIN
+        -- Intentamos obtener la referencia de la vacuna
+        SELECT REF(v) INTO v_ref_vacuna FROM Tabla_Vacuna v WHERE id = p_id_vacuna;
+        
+        -- Insertamos en la tabla anidada
+        INSERT INTO TABLE(SELECT a.Dosis FROM Table_Animal a WHERE a.id = p_id_animal)
+        VALUES (Tipo_Dosis(p_fecha, v_ref_vacuna));
+        
+        COMMIT;
+        RETURN 0;
+    EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
+    END suministrarDosis;
+
+END funcionesRefugio;
 /
 
 -- TRIGAR PARA VACUNAS ESENCIALES DE UN ANIMAL
