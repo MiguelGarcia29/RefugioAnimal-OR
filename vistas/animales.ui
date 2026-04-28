@@ -21,7 +21,7 @@
     margin: 0px;
 }</string>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,8">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="8">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -37,165 +37,6 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <item>
-     <widget class="QFrame" name="frame_lateral">
-      <property name="styleSheet">
-       <string notr="true">/* Color de fondo del panel lateral */
-#frame_lateral {
-    background-color: #2d8a27; /* El verde de tu captura */
-    border: none;
-}
-
-/* Estilo para todos los botones dentro del panel */
-QPushButton {
-    background-color: transparent;
-    color: white;
-    text-align: left;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-}
-
-/* Efecto cuando pasas el ratón por encima */
-QPushButton:hover {
-    background-color: #3eb038;
-}</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="spacing">
-        <number>18</number>
-       </property>
-       <property name="topMargin">
-        <number>20</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="imagen">
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>100</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>120</width>
-           <height>120</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">#imagen{
-	border-radius: 50px;
-	background-color: white;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap>img/logo_perros.webp</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="nombre">
-         <property name="minimumSize">
-          <size>
-           <width>30</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>200</width>
-           <height>200</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">#nombre{
-	color: #FFFFFF;
-	padding-bottom: 20px;
-	font-family: 'Montserrat';
-	font-size: 24px;
-	letter-spacing: 1px;
-}</string>
-         </property>
-         <property name="text">
-          <string>MyFriends</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_animales">
-         <property name="text">
-          <string>Animales</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>img/huella.png</normaloff>img/huella.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_socios">
-         <property name="text">
-          <string>Socios</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>img/persona.webp</normaloff>img/persona.webp</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_adopcion">
-         <property name="text">
-          <string>Adopción</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>img/corazon2.webp</normaloff>img/corazon2.webp</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_vacunacion">
-         <property name="text">
-          <string>Vacunación</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>img/salud.png</normaloff>img/salud.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>341</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item>
      <widget class="QFrame" name="frame">
       <property name="frameShape">
@@ -343,7 +184,7 @@ QPushButton:hover {
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_7">
              <item>
-              <widget class="QPushButton" name="btn_buscarAnimales_2">
+              <widget class="QPushButton" name="btn_buscar">
                <property name="text">
                 <string>BUSCAR</string>
                </property>
