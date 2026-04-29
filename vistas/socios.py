@@ -19,26 +19,26 @@ class SociosWindow(QtWidgets.QMainWindow):
         if ventana.exec_() == QtWidgets.QDialog.Accepted:
             print("Datos de Socio guardados")
             
-    # def cargar_tablaSocios(self):
-    #     db = DataBase()
-    #     conn = db.conectar
-    #     cursor = None
+    def cargar_tablaSocios(self):
+        db = DataBase()
+        conn = db.conectar()
+        cursor = None
         
-    #     if conn:
-    #         try:
-    #             cursor = conn.cursor()
-    #             cursor.execute("SELECT ID, NOMBRE, APELLIDOS, TO_CHAR(FECHANACIMIENTO, 'DD/MM/YY), CUOTASFALTANTES, TO_CHAR(FECHAINSCRIPCION, 'DD/MM/YY') FROM TABLE_SOCIOS ORDER BY ID ASC")
-    #             filas = cursor.fetchall()
+        if conn:
+            try:
+                cursor = conn.cursor()
+                cursor.execute("SELECT ID, NOMBRE, DNI, DIRECCION, TELEFONO, TO_CHAR(FECHANACIMIENTO, 'DD/MM/YY') FROM TABLA_SOCIO ORDER BY ID ASC")
+                filas = cursor.fetchall()
     
-    #             rellenar_tabla(self, self.tabla_socios, filas)            
-    #             self.tabla_animales.setColumnHidden(0, True)
-    #             self.tabla_socios.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+                rellenar_tabla(self, self.tabla_socios, filas)            
+                self.tabla_socios.setColumnHidden(0, True)
+                self.tabla_socios.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
                 
-    #         except Exception as e:
-    #             print(f"Error al cargar datos: {e}")
-    #         finally:
-    #             cursor.close()
-    #             conn.close()
+            except Exception as e:
+                print(f"Error al cargar datos: {e}")
+            finally:
+                cursor.close()
+                conn.close()
             
 class DialogoSocio(QtWidgets.QDialog):
     def __init__(self, modo = "añadir"):
