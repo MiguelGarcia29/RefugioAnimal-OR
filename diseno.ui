@@ -195,7 +195,7 @@ QPushButton:hover {
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_3">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,8">
@@ -215,13 +215,13 @@ QPushButton:hover {
          <number>0</number>
         </property>
         <item>
-         <widget class="QFrame" name="frame_superior_1">
+         <widget class="QFrame" name="frame_superior">
           <property name="styleSheet">
-           <string notr="true">#frame_superior_1{
+           <string notr="true">#frame_superior{
 	background-color: #004d00
 }
 
-#titulo_1{
+#titulo{
 	color: white; 
 	font-size: 20px; 
 	font-weight: bold; 
@@ -263,7 +263,7 @@ QPushButton:hover {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="titulo_1">
+            <widget class="QLabel" name="titulo">
              <property name="text">
               <string>Animales</string>
              </property>
@@ -313,9 +313,9 @@ QPushButton:hover {
             <number>0</number>
            </property>
            <item>
-            <widget class="QFrame" name="frame_busqueda_1">
+            <widget class="QFrame" name="frame_busqueda">
              <property name="styleSheet">
-              <string notr="true">#frame_busqueda_1{
+              <string notr="true">#frame_busqueda{
 background-color: #FFFFFF;
 }
 
@@ -340,7 +340,7 @@ QPushButton:hover {
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
-               <widget class="QPushButton" name="btn_buscarAnimales">
+               <widget class="QPushButton" name="btn_buscar">
                 <property name="text">
                  <string>BUSCAR</string>
                 </property>
@@ -364,7 +364,7 @@ QPushButton:hover {
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_anadirAnimales">
+               <widget class="QPushButton" name="btn_anadir">
                 <property name="text">
                  <string>Añadir Animal</string>
                 </property>
@@ -375,7 +375,7 @@ QPushButton:hover {
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_editarAnimales">
+               <widget class="QPushButton" name="btn_editar">
                 <property name="text">
                  <string>Editar Animal</string>
                 </property>
@@ -386,7 +386,7 @@ QPushButton:hover {
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_eliminarAnimales">
+               <widget class="QPushButton" name="btn_eliminar">
                 <property name="text">
                  <string>Eliminar Animal</string>
                 </property>
@@ -1191,7 +1191,7 @@ QComboBox QAbstractItemView {
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="input_nombre">
+                  <widget class="QLineEdit" name="input_nombre1">
                    <property name="maximumSize">
                     <size>
                      <width>250</width>
@@ -1204,7 +1204,7 @@ QComboBox QAbstractItemView {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="input_sexo">
+                  <widget class="QComboBox" name="input_sexo1">
                    <property name="maximumSize">
                     <size>
                      <width>250</width>
@@ -1229,7 +1229,7 @@ QComboBox QAbstractItemView {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="input_color">
+                  <widget class="QLineEdit" name="input_color1">
                    <property name="maximumSize">
                     <size>
                      <width>250</width>
@@ -1242,7 +1242,7 @@ QComboBox QAbstractItemView {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="input_especie">
+                  <widget class="QComboBox" name="input_especie1">
                    <property name="maximumSize">
                     <size>
                      <width>250</width>
@@ -1257,7 +1257,7 @@ QComboBox QAbstractItemView {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="input_raza">
+                  <widget class="QComboBox" name="input_raza1">
                    <property name="maximumSize">
                     <size>
                      <width>250</width>
@@ -1296,6 +1296,21 @@ QComboBox QAbstractItemView {
                  <enum>QFrame::Raised</enum>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_8">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
                  <item>
                   <spacer name="horizontalSpacer_6">
                    <property name="orientation">
@@ -1310,7 +1325,7 @@ QComboBox QAbstractItemView {
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="btn_adoptar">
+                  <widget class="QPushButton" name="btn_adoptar1">
                    <property name="styleSheet">
                     <string notr="true">/* Estilo general del botón en estado normal */
 QPushButton {
@@ -1863,10 +1878,10 @@ QPushButton:hover {
   <tabstop>btn_socios</tabstop>
   <tabstop>btn_adopcion</tabstop>
   <tabstop>btn_vacunacion</tabstop>
-  <tabstop>btn_buscarAnimales</tabstop>
-  <tabstop>btn_anadirAnimales</tabstop>
-  <tabstop>btn_editarAnimales</tabstop>
-  <tabstop>btn_eliminarAnimales</tabstop>
+  <tabstop>btn_buscar</tabstop>
+  <tabstop>btn_anadir</tabstop>
+  <tabstop>btn_editar</tabstop>
+  <tabstop>btn_eliminar</tabstop>
   <tabstop>tabla_animales</tabstop>
   <tabstop>btn_buscarSocios</tabstop>
   <tabstop>btn_altaSocios</tabstop>
@@ -1874,12 +1889,12 @@ QPushButton:hover {
   <tabstop>btn_bajaSocios</tabstop>
   <tabstop>tabla_socios</tabstop>
   <tabstop>tabla_adopcion</tabstop>
-  <tabstop>input_nombre</tabstop>
-  <tabstop>input_sexo</tabstop>
-  <tabstop>input_color</tabstop>
-  <tabstop>input_especie</tabstop>
-  <tabstop>input_raza</tabstop>
-  <tabstop>btn_adoptar</tabstop>
+  <tabstop>input_nombre1</tabstop>
+  <tabstop>input_sexo1</tabstop>
+  <tabstop>input_color1</tabstop>
+  <tabstop>input_especie1</tabstop>
+  <tabstop>input_raza1</tabstop>
+  <tabstop>btn_adoptar1</tabstop>
   <tabstop>btn_buscarAdopcionAnimal</tabstop>
   <tabstop>btn_buscarVacunacionAnimales</tabstop>
   <tabstop>tabla_vacunacionAnimales</tabstop>

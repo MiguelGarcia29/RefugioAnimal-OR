@@ -239,21 +239,21 @@ QCheckBox::indicator:disabled {
        <number>75</number>
       </property>
       <item>
-       <widget class="QLineEdit" name="input_nombreVacuna">
+       <widget class="QLineEdit" name="input_nombre">
         <property name="placeholderText">
          <string>Nombre</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="input_descripcionVacuna">
+       <widget class="QLineEdit" name="input_descripcion">
         <property name="placeholderText">
          <string>Descripción</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="input_esencialVacuna">
+       <widget class="QCheckBox" name="input_esencial">
         <property name="minimumSize">
          <size>
           <width>60</width>
@@ -269,7 +269,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="input_especieVacuna">
+       <widget class="QComboBox" name="input_especie">
         <item>
          <property name="text">
           <string>Especie</string>
