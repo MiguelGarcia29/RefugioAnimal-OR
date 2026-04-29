@@ -173,6 +173,15 @@ CREATE OR REPLACE PACKAGE funcionesRefugio AS
     
     FUNCTION suministrarDosis(p_id_animal IN NUMBER, p_id_vacuna IN NUMBER, p_fecha DATE) RETURN NUMBER;
 
+    FUNCTION insertarSocio(
+        p_nombre VARCHAR2, p_fechaNacimiento DATE, p_dni VARCHAR2, 
+        p_direccion VARCHAR2, p_telefono VARCHAR2
+    ) RETURN NUMBER;
+    
+    FUNCTION insertarCuota(p_ejercicio NUMBER, p_importe NUMBER) RETURN NUMBER;
+    
+    FUNCTION asignarCuotaSocio(p_id_socio NUMBER, p_ejercicio NUMBER, p_pagada CHAR) RETURN NUMBER;
+
 END funcionesRefugio;
 /
 CREATE OR REPLACE PACKAGE BODY funcionesRefugio AS
@@ -269,9 +278,92 @@ CREATE OR REPLACE PACKAGE BODY funcionesRefugio AS
     EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
     END suministrarDosis;
 
+    FUNCTION insertarSocio (
+        p_nombre VARCHAR2, p_fechaNacimiento DATE, p_dni VARCHAR2, 
+        p_direccion VARCHAR2, p_telefono VARCHAR2
+    ) RETURN NUMBER IS
+    BEGIN
+        INSERT INTO Tabla_Socio VALUES (
+            seq_socio.NEXTVAL, p_nombre, p_fechaNacimiento, p_dni, 
+            p_direccion, p_telefono, Tabla_CuotasPagadas() 
+        );
+        COMMIT;
+        RETURN 0;
+    EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
+    END insertarSocio;
+
+    FUNCTION insertarCuota (p_ejercicio NUMBER, p_importe NUMBER) RETURN NUMBER IS
+    BEGIN
+        INSERT INTO Tabla_InfoCuota VALUES (
+            Tipo_InfoCuota(p_ejercicio, p_importe)
+        );
+        COMMIT;
+        RETURN 0;
+    EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
+    END insertarCuota;
+
+    FUNCTION asignarCuotaSocio (p_id_socio NUMBER, p_ejercicio NUMBER, p_pagada CHAR) RETURN NUMBER IS
+        v_ref_cuota REF Tipo_InfoCuota;
+    BEGIN
+        -- 1. Obtenemos la referencia
+        SELECT REF(c) INTO v_ref_cuota 
+        FROM Tabla_InfoCuota c 
+        WHERE ejercicio = p_ejercicio;
+        
+        -- 2. Insertamos en la colección del socio
+        INSERT INTO TABLE(SELECT cuotas FROM Tabla_Socio WHERE id = p_id_socio)
+        VALUES (Tipo_CuotasPagafas(v_ref_cuota, p_pagada));
+        
+        COMMIT;
+        RETURN 0;
+    EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
+    END asignarCuotaSocio;
+
 END funcionesRefugio;
 /
 
 -- TRIGAR PARA VACUNAS ESENCIALES DE UN ANIMAL
 -- TRIGGER suministrarEsenciales();
 -- TRIGGER PARA CUANDO INSERTE UNA CUOTA PONERLESELA NO PAGADAS A TODOS LOS SOCIOS
+CREATE OR REPLACE TRIGGER Trigger_AsignarCuotas
+FOR INSERT ON Tabla_InfoCuota
+COMPOUND TRIGGER
+
+    v_ejercicio NUMBER(4);
+
+    AFTER EACH ROW IS
+    BEGIN
+        v_ejercicio := :NEW.ejercicio;
+    END AFTER EACH ROW;
+
+    AFTER STATEMENT IS
+        v_ref_cuota REF Tipo_InfoCuota;
+    BEGIN
+        -- Nos aseguramos de que haya un valor para procesar
+        IF v_ejercicio IS NOT NULL THEN
+            
+            -- Obtenemos el puntero (REF) de la cuota que acabamos de meter
+            SELECT REF(c) INTO v_ref_cuota
+            FROM Tabla_InfoCuota c
+            WHERE ejercicio = v_ejercicio;
+
+            -- Recorremos todos los socios que existen actualmente
+            FOR r_socio IN (SELECT id FROM Tabla_Socio) LOOP
+                
+                -- Le insertamos a cada socio la referencia con el estado 'N'
+                INSERT INTO TABLE(SELECT cuotas FROM Tabla_Socio WHERE id = r_socio.id)
+                VALUES (Tipo_CuotasPagafas(v_ref_cuota, 'N'));
+                
+            END LOOP;
+            
+            -- Limpiamos la variable por seguridad para la próxima vez
+            v_ejercicio := NULL;
+            
+        END IF;
+    END AFTER STATEMENT;
+
+END Trigger_AsignarCuotas;
+/
+
+
+COMMIT;
