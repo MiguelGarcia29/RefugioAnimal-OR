@@ -1,19 +1,33 @@
--- 1. Eliminar las tablas (esto también elimina la tabla anidada Lista_Dosis de forma automática)
-DROP TABLE Table_Animal CASCADE CONSTRAINTS;
-DROP TABLE Tabla_Vacuna CASCADE CONSTRAINTS;
+-- 1. Borrar el paquete (especificación y cuerpo)
+DROP PACKAGE funcionesRefugio;
 
--- 3. Eliminar los tipos base (en orden inverso a sus dependencias)
+-- 2. Borrar las secuencias (usadas en el Package)
+DROP SEQUENCE seq_id_animal;
+DROP SEQUENCE seq_vacuna;
+DROP SEQUENCE seq_socio;
+
+-- 3. Borrar las Tablas (CASCADE CONSTRAINTS elimina dependencias de las REF y anidadas)
+DROP TABLE Table_Animal CASCADE CONSTRAINTS;
+DROP TABLE Tabla_Socio CASCADE CONSTRAINTS;
+DROP TABLE Tabla_Vacuna CASCADE CONSTRAINTS;
+DROP TABLE Tabla_InfoCuota CASCADE CONSTRAINTS;
+
+-- 4. Borrar los Tipos de la rama de Animales y Vacunas
 DROP TYPE Tipo_Animal FORCE;
 DROP TYPE Tipo_Lista_Dosis FORCE;
 DROP TYPE Tipo_Dosis FORCE;
 DROP TYPE Tipo_Vacuna FORCE;
 
--- 4. Eliminar la secuencia
-DROP SEQUENCE seq_id_animal;
-DROP SEQUENCE seq_vacuna;
+-- 5. Borrar los Tipos de la rama de Socios y Cuotas
+-- (Nota: Respetando el nombre "Tipo_CuotasPagafas" que pusiste en tu script)
+DROP TYPE Tipo_Socio FORCE;
+DROP TYPE Tabla_CuotasPagadas FORCE;
+DROP TYPE Tipo_CuotasPagafas FORCE;
+DROP TYPE Tipo_InfoCuota FORCE;
 
 CREATE SEQUENCE seq_id_animal START WITH 1 INCREMENT BY 1 MAXVALUE 9999999999;
 CREATE SEQUENCE seq_vacuna START WITH 1 INCREMENT BY 1 MAXVALUE 9999999999;
+CREATE SEQUENCE seq_socio START WITH 1 INCREMENT BY 1 MAXVALUE 9999999999;
 
 /
 
@@ -81,6 +95,56 @@ NESTED TABLE Dosis STORE AS Lista_Dosis;
 
 ALTER TABLE Lista_Dosis ADD (SCOPE FOR (vacuna) IS Tabla_Vacuna);
 /
+
+-- AÑO Y VALOR DE AL CUOTA ESE AÑO
+CREATE TYPE Tipo_InfoCuota AS OBJECT(
+    ejercicio NUMBER(4),
+    importe NUMBER(6,2)
+);
+/
+
+CREATE TABLE Tabla_InfoCuota OF Tipo_InfoCuota(
+    CONSTRAINT PK_Tabla_InfoCUOTAS PRIMARY KEY (ejercicio),
+    importe NOT NULL
+);
+/
+
+CREATE TYPE Tipo_CuotasPagafas AS OBJECT (
+    cuotaPagada REF Tipo_InfoCuota,
+    pagada CHAR(1) -- SI ESTA PAGADA O NO
+);
+/
+
+CREATE TYPE Tabla_CuotasPagadas AS TABLE OF Tipo_CuotasPagafas;
+/
+
+CREATE TYPE Tipo_Socio AS OBJECT(
+    id NUMBER,
+    nombre VARCHAR2(50),
+    fechaNacimiento DATE,
+    dni VARCHAR2(10),
+    direccion VARCHAR2(100),
+    telefono VARCHAR2(15),
+    cuotas Tabla_CuotasPagadas
+
+
+) NOT FINAL; 
+/
+
+CREATE TABLE Tabla_Socio OF Tipo_Socio(
+    CONSTRAINT PK_Tabla_Socio PRIMARY KEY (id),
+    id NOT NULL,
+    nombre NOT NULL,
+    fechaNacimiento NOT NULL,
+    dni NOT NULL,
+    direccion NOT NULL,
+    telefono NOT NULL 
+)NESTED TABLE cuotas STORE AS Lista_Cuotas;
+/
+
+ALTER TABLE Lista_Cuotas ADD (SCOPE FOR (cuotaPagada) IS Tabla_InfoCuota);
+/
+
 
 CREATE OR REPLACE PACKAGE funcionesRefugio AS
 
@@ -210,3 +274,4 @@ END funcionesRefugio;
 
 -- TRIGAR PARA VACUNAS ESENCIALES DE UN ANIMAL
 -- TRIGGER suministrarEsenciales();
+-- TRIGGER PARA CUANDO INSERTE UNA CUOTA PONERLESELA NO PAGADAS A TODOS LOS SOCIOS
