@@ -256,7 +256,7 @@ QCheckBox::indicator:disabled {
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label_idSocio">
+       <widget class="QLabel" name="label_id">
         <property name="text">
          <string>ID:</string>
         </property>
@@ -266,7 +266,7 @@ QCheckBox::indicator:disabled {
        <widget class="QLineEdit" name="input_id"/>
       </item>
       <item>
-       <widget class="QLabel" name="label_nombreSocio">
+       <widget class="QLabel" name="label_nombre">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -289,7 +289,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_apellidosSocio">
+       <widget class="QLabel" name="label_apellidos">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -312,7 +312,7 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_fechaNacimientoSocio">
+       <widget class="QLabel" name="label_fechaNacimiento">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
