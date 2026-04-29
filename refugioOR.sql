@@ -339,24 +339,19 @@ COMPOUND TRIGGER
     AFTER STATEMENT IS
         v_ref_cuota REF Tipo_InfoCuota;
     BEGIN
-        -- Nos aseguramos de que haya un valor para procesar
         IF v_ejercicio IS NOT NULL THEN
             
-            -- Obtenemos el puntero (REF) de la cuota que acabamos de meter
             SELECT REF(c) INTO v_ref_cuota
             FROM Tabla_InfoCuota c
             WHERE ejercicio = v_ejercicio;
 
-            -- Recorremos todos los socios que existen actualmente
             FOR r_socio IN (SELECT id FROM Tabla_Socio) LOOP
                 
-                -- Le insertamos a cada socio la referencia con el estado 'N'
                 INSERT INTO TABLE(SELECT cuotas FROM Tabla_Socio WHERE id = r_socio.id)
                 VALUES (Tipo_CuotasPagafas(v_ref_cuota, 'N'));
                 
             END LOOP;
             
-            -- Limpiamos la variable por seguridad para la próxima vez
             v_ejercicio := NULL;
             
         END IF;
