@@ -34,7 +34,8 @@ CREATE SEQUENCE seq_socio START WITH 1 INCREMENT BY 1 MAXVALUE 9999999999;
 CREATE TYPE Tipo_Vacuna AS OBJECT(
     id NUMBER,
     nombre VARCHAR2(50),
-    esEsencial CHAR(1)
+    esEsencial CHAR(1),
+    especie VARCHAR2(50)
 );
 /
 
@@ -167,7 +168,7 @@ CREATE OR REPLACE PACKAGE funcionesRefugio AS
     
     FUNCTION borrarAnimal(p_id IN NUMBER) RETURN NUMBER;
 
-    FUNCTION crearVacuna(p_nombre VARCHAR2, p_esEsencial CHAR) RETURN NUMBER;
+    FUNCTION crearVacuna(p_nombre VARCHAR2, p_esEsencial CHAR, p_especie VARCHAR2) RETURN NUMBER;
     
     FUNCTION borrarVacuna(p_id IN NUMBER) RETURN NUMBER;
     
@@ -246,9 +247,9 @@ CREATE OR REPLACE PACKAGE BODY funcionesRefugio AS
     EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
     END borrarAnimal;
 
-    FUNCTION crearVacuna(p_nombre VARCHAR2, p_esEsencial CHAR) RETURN NUMBER IS
+    FUNCTION crearVacuna(p_nombre VARCHAR2, p_esEsencial CHAR, p_especie VARCHAR2) RETURN NUMBER IS
     BEGIN
-        INSERT INTO Tabla_Vacuna VALUES (seq_vacuna.NEXTVAL, p_nombre, p_esEsencial);
+        INSERT INTO Tabla_Vacuna VALUES (seq_vacuna.NEXTVAL, p_nombre, p_esEsencial, p_especie);
         COMMIT;
         RETURN 0;
     EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
@@ -323,7 +324,25 @@ END funcionesRefugio;
 /
 
 -- TRIGAR PARA VACUNAS ESENCIALES DE UN ANIMAL
--- TRIGGER suministrarEsenciales();
+CREATE OR REPLACE TRIGGER Trigger_SuministrarEsenciales
+AFTER INSERT ON Table_Animal
+FOR EACH ROW
+DECLARE
+    -- Cursor para buscar vacunas esenciales de la misma especie
+    CURSOR c_vacunas_esenciales IS
+        SELECT REF(v) as ref_v
+        FROM Tabla_Vacuna v
+        WHERE v.esEsencial = 'S' 
+        AND UPPER(v.especie) = UPPER(:NEW.especie);
+BEGIN
+    FOR r_vacuna IN c_vacunas_esenciales LOOP
+        -- Insertamos la dosis en la tabla anidada del animal recién creado
+        INSERT INTO TABLE(SELECT a.Dosis FROM Table_Animal a WHERE a.id = :NEW.id)
+        VALUES (Tipo_Dosis(SYSDATE, r_vacuna.ref_v));
+    END LOOP;
+END;
+/
+
 -- TRIGGER PARA CUANDO INSERTE UNA CUOTA PONERLESELA NO PAGADAS A TODOS LOS SOCIOS
 CREATE OR REPLACE TRIGGER Trigger_AsignarCuotas
 FOR INSERT ON Tabla_InfoCuota
