@@ -39,7 +39,6 @@ class MainApp(QtWidgets.QMainWindow):
         socios.SociosWindow.cargar_tablaSocios(self.pestana_socios)
         adopcion.AdopcionWindow.cargar_tablaAdopcion(self.pestana_adopcion)
         vacunacion.VacunacionWindow.cargar_tablaVacuna(self.pestana_vacunacion)
-        # vacunacion.VacunacionWindow.cargar_dosis(self.pestana_vacunacion)
         vacunacion.VacunacionWindow.cargar_tablaVacunaAnimal(self.pestana_vacunacion)
 
 if __name__ == "__main__":

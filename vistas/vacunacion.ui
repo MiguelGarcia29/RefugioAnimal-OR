@@ -374,6 +374,11 @@ QPushButton:hover {
                </attribute>
                <column>
                 <property name="text">
+                 <string>ID</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
                  <string>Vacuna</string>
                 </property>
                </column>
