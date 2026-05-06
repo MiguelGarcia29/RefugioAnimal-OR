@@ -72,3 +72,5 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Error en carga masiva: ' || SQLERRM);
 END;
 /
+
+
