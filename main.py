@@ -36,7 +36,7 @@ class MainApp(QtWidgets.QMainWindow):
         
     def cargar_todo(self):
         animales.AnimalesWindow.cargar_tablaAnimal(self.pestana_animales)
-        # socios.SociosWindow.cargar_tablaSocios(self.pestana_socios)
+        socios.SociosWindow.cargar_tablaSocios(self.pestana_socios)
         adopcion.AdopcionWindow.cargar_tablaAdopcion(self.pestana_adopcion)
         vacunacion.VacunacionWindow.cargar_tablaVacuna(self.pestana_vacunacion)
         # vacunacion.VacunacionWindow.cargar_dosis(self.pestana_vacunacion)
@@ -45,5 +45,5 @@ class MainApp(QtWidgets.QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = MainApp()
-    window.show()
+    window.showMaximized()
     sys.exit(app.exec_())

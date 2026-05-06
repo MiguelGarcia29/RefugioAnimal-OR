@@ -237,22 +237,22 @@ QTableWidget::item {
                </column>
                <column>
                 <property name="text">
-                 <string>Apellidos</string>
+                 <string>DNI</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Dirección</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Teléfono</string>
                 </property>
                </column>
                <column>
                 <property name="text">
                  <string>Fecha Nacimiento</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>Cuotas Faltantes</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>Fecha Inscripción</string>
                 </property>
                </column>
               </widget>

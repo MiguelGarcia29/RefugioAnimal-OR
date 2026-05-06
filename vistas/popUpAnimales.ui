@@ -164,7 +164,7 @@ QCheckBox::indicator:checked {
 QDateEdit::drop-down {
     subcontrol-origin: padding;
     subcontrol-position: top right;
-    width: 500px; /* Lo hacemos ancho para que sea fácil de clicar */
+    width: 250px; /* Lo hacemos ancho para que sea fácil de clicar */
     border-left: 1px solid #dcdcdc; /* Una rayita separadora */
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -174,7 +174,7 @@ QDateEdit::drop-down {
 
 /* Cambiar la flecha por un &quot;icono&quot; visual */
 QDateEdit::down-arrow {
-    image: url(Interfaz/img/calendario.png); /* Icono */
+    image: url(:/iconos/calendario.png);/* Icono */
     width: 30px;
     height: 30px;
 }
@@ -310,7 +310,7 @@ QCheckBox::indicator:disabled {
          <enum>QAbstractSpinBox::UpDownArrows</enum>
         </property>
         <property name="specialValueText">
-         <string>Fecha de Nacimiento</string>
+         <string/>
         </property>
         <property name="dateTime">
          <datetime>
@@ -346,7 +346,7 @@ QCheckBox::indicator:disabled {
          <string notr="true"/>
         </property>
         <property name="specialValueText">
-         <string>Fecha Adopcion</string>
+         <string/>
         </property>
         <property name="dateTime">
          <datetime>
