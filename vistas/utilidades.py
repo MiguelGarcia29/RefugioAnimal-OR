@@ -1,6 +1,6 @@
-import sys
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QDate
+import recursos_rc
 
 def abrir_animal(self, modo):
     ventana = DialogoAnimal(modo)

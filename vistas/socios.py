@@ -3,6 +3,8 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QDate
 from conexion import DataBase
 from vistas.utilidades import rellenar_tabla
+import recursos_rc
+
 
 class SociosWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -32,7 +34,7 @@ class SociosWindow(QtWidgets.QMainWindow):
     
                 rellenar_tabla(self, self.tabla_socios, filas)            
                 self.tabla_socios.setColumnHidden(0, True)
-                self.tabla_socios.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+                self.tabla_socios.horizontalHeader().setStretchLastSection(True)
                 
             except Exception as e:
                 print(f"Error al cargar datos: {e}")

@@ -82,16 +82,13 @@ QPushButton:hover {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">#imagen{
-	border-radius: 50px;
-	background-color: white;
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>vistas/img/logo_perros.webp</pixmap>
+          <pixmap>vistas/img/iconoApp.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
