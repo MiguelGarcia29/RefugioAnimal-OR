@@ -29,12 +29,13 @@ class SociosWindow(QtWidgets.QMainWindow):
         if conn:
             try:
                 cursor = conn.cursor()
-                cursor.execute("SELECT ID, NOMBRE, DNI, DIRECCION, TELEFONO, TO_CHAR(FECHANACIMIENTO, 'DD/MM/YY') FROM TABLA_SOCIO ORDER BY ID ASC")
+                cursor.execute("SELECT S.ID, S.NOMBRE, S.DNI, S.DIRECCION, S.TELEFONO, TO_CHAR(S.FECHANACIMIENTO, 'DD/MM/YY'), COUNT(DEREF(c.cuotaPagada).ejercicio) FROM TABLA_SOCIO s, TABLE(s.cuotas) c WHERE c.pagada = 'N' GROUP BY S.ID, S.NOMBRE, S.DNI, S.DIRECCION, S.TELEFONO, TO_CHAR(S.FECHANACIMIENTO, 'DD/MM/YY') ORDER BY ID ASC")
                 filas = cursor.fetchall()
     
                 rellenar_tabla(self, self.tabla_socios, filas)            
                 self.tabla_socios.setColumnHidden(0, True)
-                self.tabla_socios.horizontalHeader().setStretchLastSection(True)
+                self.tabla_socios.setColumnWidth(1, 250)
+                self.tabla_socios.setColumnWidth(3, 400)
                 
             except Exception as e:
                 print(f"Error al cargar datos: {e}")

@@ -23,7 +23,7 @@ class AnimalesWindow(QtWidgets.QMainWindow):
             try:
                 cursor = conn.cursor()
                 # Consulta para traer los datos
-                cursor.execute("SELECT ID, NOMBRE, SEXO, TO_CHAR(FECHANACIMIENTO, 'DD/MM/YYYY'), COLOR, ESPECIE, RAZA, TO_CHAR(FECHALLEGADA, 'DD/MM/YYYY'), TO_CHAR(FECHAADOPCION, 'DD/MM/YYYY'), CARACTERISTICAS FROM TABLE_ANIMAL ORDER BY ID ASC")
+                cursor.execute("SELECT a.id, a.nombre, a.sexo, TO_CHAR(a.fechaNacimiento, 'DD/MM/YYYY') AS fecha_nacimiento, a.color, e.nombre_especie AS especie, r.nombre_raza AS raza, TO_CHAR(a.fechaLlegada, 'DD/MM/YYYY') AS fecha_llegada, TO_CHAR(a.fechaAdopcion, 'DD/MM/YYYY') AS fecha_adopcion, a.caracteristicas FROM TABLE_ANIMAL a JOIN Tabla_Razas r ON a.id_raza = r.id_raza JOIN Tabla_Especies e ON r.id_especie = e.id_especie ORDER BY a.id ASC")
                 filas = cursor.fetchall()
                 
                 rellenar_tabla(self, self.tabla_animales, filas)

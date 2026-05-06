@@ -11,9 +11,11 @@ class AdopcionWindow(QtWidgets.QMainWindow):
                 
         self.input_especie.model().item(0).setEnabled(False) 
         self.input_especie.setCurrentIndex(0) # Aseguramos que se vea el placeholder
+        # self.cargar_especie()
         
         self.input_raza.model().item(0).setEnabled(False) 
         self.input_raza.setCurrentIndex(0)
+        # self.cargar_raza()
         
         self.input_sexo.model().item(0).setEnabled(False) 
         self.input_sexo.setCurrentIndex(0)
@@ -26,7 +28,7 @@ class AdopcionWindow(QtWidgets.QMainWindow):
         if conn:
             try:
                 cursor = conn.cursor()
-                cursor.execute("SELECT ID, NOMBRE, SEXO, TO_CHAR(FECHANACIMIENTO, 'DD/MM/YYYY'), COLOR, ESPECIE, RAZA, TO_CHAR(FECHALLEGADA, 'DD/MM/YYYY'), TO_CHAR(FECHAADOPCION, 'DD/MM/YYYY'), CARACTERISTICAS FROM TABLE_ANIMAL WHERE FECHAADOPCION IS NULL ORDER BY ID ASC")
+                cursor.execute("SELECT a.id, a.nombre, a.sexo, TO_CHAR(a.fechaNacimiento, 'DD/MM/YYYY') AS fecha_nacimiento, a.color, e.nombre_especie AS especie, r.nombre_raza AS raza, TO_CHAR(a.fechaLlegada, 'DD/MM/YYYY') AS fecha_llegada, TO_CHAR(a.fechaAdopcion, 'DD/MM/YYYY') AS fecha_adopcion, a.caracteristicas FROM TABLE_ANIMAL a JOIN Tabla_Razas r ON a.id_raza = r.id_raza JOIN Tabla_Especies e ON r.id_especie = e.id_especie ORDER BY a.id ASC")                
                 filas = cursor.fetchall()
                 
                 rellenar_tabla(self, self.tabla_adopcion, filas)
@@ -39,3 +41,41 @@ class AdopcionWindow(QtWidgets.QMainWindow):
             finally:
                 cursor.close()
                 conn.close()
+                
+    # def cargar_especie(self):
+    #     db = DataBase()
+    #     conn  = db.conectar()
+    #     cursor = None
+        
+    #     if conn:
+    #         try:
+    #             cursor = conn.cursor()
+    #             cursor.execute("SELECT id, nombre FROM especies")
+
+    #             for id_, nombre in cursor.fetchall():
+    #                 self.input_especie.addItem(nombre, id_)
+                    
+    #         except Exception as e:
+    #             print(f"Error al cargar datos: {e}")
+    #         finally:
+    #             cursor.close()
+    #             conn.close()        
+    
+    # def cargar_razas(self):    
+    #     db = DataBase()
+    #     conn  = db.conectar()
+    #     cursor = None
+        
+    #     if conn:
+    #         try:
+    #             self.input_raza.clear()
+    #             id_especie = self.input_especie.currentData()
+    #             cursor.execute("SELECT nombre FROM razas WHERE id_especie = ?", (id_especie,))
+
+    #             for (nombre,) in cursor.fetchall():
+    #                 self.input_raza.addItem(nombre)
+    #         except Exception as e:
+    #             print(f"Error al cargar datos: {e}")
+    #         finally:
+    #             cursor.close()
+    #             conn.close() 

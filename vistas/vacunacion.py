@@ -45,7 +45,7 @@ class VacunacionWindow(QtWidgets.QMainWindow):
         if conn:
             try:
                 cursor = conn.cursor()
-                cursor.execute("SELECT ID, NOMBRE, SEXO, ESPECIE, RAZA, TO_CHAR(FECHANACIMIENTO, 'DD/MM/YY'), TO_CHAR(FECHAADOPCION, 'DD/MM/YY') FROM TABLE_ANIMAL WHERE FECHAADOPCION IS NULL ORDER BY ID ASC")
+                cursor.execute("SELECT a.id, a.nombre, a.sexo, TO_CHAR(a.fechaNacimiento, 'DD/MM/YYYY') AS fecha_nacimiento, a.color, e.nombre_especie AS especie, r.nombre_raza AS raza, TO_CHAR(a.fechaLlegada, 'DD/MM/YYYY') AS fecha_llegada, TO_CHAR(a.fechaAdopcion, 'DD/MM/YYYY') AS fecha_adopcion, a.caracteristicas FROM TABLE_ANIMAL a JOIN Tabla_Razas r ON a.id_raza = r.id_raza JOIN Tabla_Especies e ON r.id_especie = e.id_especie ORDER BY a.id ASC")
                 filas = cursor.fetchall()
                               
                 rellenar_tabla(self, self.tabla_vacunacionAnimales, filas)

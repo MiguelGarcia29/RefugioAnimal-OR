@@ -183,7 +183,7 @@ QPushButton:hover {
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,1">
           <item>
            <widget class="QFrame" name="frame_9">
             <property name="frameShape">
@@ -258,8 +258,14 @@ QPushButton:hover {
              </item>
              <item>
               <widget class="QTableWidget" name="tabla_vacunacionAnimales">
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
+               </property>
                <property name="alternatingRowColors">
                 <bool>true</bool>
+               </property>
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
                </property>
                <attribute name="verticalHeaderVisible">
                 <bool>false</bool>
@@ -354,8 +360,14 @@ QPushButton:hover {
              </item>
              <item>
               <widget class="QTableWidget" name="tabla_dosis">
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
+               </property>
                <property name="alternatingRowColors">
                 <bool>true</bool>
+               </property>
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
                </property>
                <attribute name="verticalHeaderVisible">
                 <bool>false</bool>
@@ -448,8 +460,14 @@ QPushButton:hover {
              </item>
              <item>
               <widget class="QTableWidget" name="tabla_vacunas">
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
+               </property>
                <property name="alternatingRowColors">
                 <bool>true</bool>
+               </property>
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
                </property>
                <attribute name="verticalHeaderVisible">
                 <bool>false</bool>

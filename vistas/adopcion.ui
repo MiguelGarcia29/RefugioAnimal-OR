@@ -170,8 +170,14 @@ QTableWidget::item {
     padding: 5px;
 }</string>
             </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
             <property name="alternatingRowColors">
              <bool>true</bool>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
             </property>
             <attribute name="verticalHeaderVisible">
              <bool>false</bool>

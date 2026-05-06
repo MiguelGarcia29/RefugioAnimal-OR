@@ -219,8 +219,14 @@ QTableWidget::item {
     padding: 5px;
 }</string>
                </property>
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
+               </property>
                <property name="alternatingRowColors">
                 <bool>true</bool>
+               </property>
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
                </property>
                <attribute name="verticalHeaderVisible">
                 <bool>false</bool>
@@ -253,6 +259,11 @@ QTableWidget::item {
                <column>
                 <property name="text">
                  <string>Fecha Nacimiento</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Cuotas Faltantes</string>
                 </property>
                </column>
               </widget>
@@ -337,6 +348,39 @@ QPushButton:hover {
               </spacer>
              </item>
              <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>Pagar Cuota</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>img/dinero.png</normaloff>img/dinero.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>80</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
               <widget class="QPushButton" name="btn_anadir">
                <property name="text">
                 <string>Alta Socio</string>
@@ -366,6 +410,17 @@ QPushButton:hover {
                <property name="icon">
                 <iconset>
                  <normaloff>img/borrar.png</normaloff>img/borrar.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_2">
+               <property name="text">
+                <string>Nueva Cuota</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>img/cuota.png</normaloff>img/cuota.png</iconset>
                </property>
               </widget>
              </item>

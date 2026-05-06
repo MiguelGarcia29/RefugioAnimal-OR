@@ -28,3 +28,5 @@ FROM
 WHERE 
     s.id = 1;
 /
+
+SELECT     s.nombre,    s.dni,    COUNT(DEREF(c.cuotaPagada).ejercicio) AS Cuotas_Pendientes FROM     Tabla_Socio s,    TABLE(s.cuotas) c WHERE     c.pagada = 'N' GROUP BY     s.nombre,     s.dni ORDER BY s.nombre;
