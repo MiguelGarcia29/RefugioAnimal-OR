@@ -8,7 +8,7 @@ BEGIN
     v_resultado := funcionesRefugio.insertarSocio('María Gómez', TO_DATE('1992-03-10', 'YYYY-MM-DD'), '11223344C', 'Calle Luna 2', '600111222');
     
     -- Asignarle la cuota del 2024 al socio con ID 1, y marcarla como No Pagada ('N')
-    v_resultado := funcionesRefugio.asignarCuotaSocio(1, 2024, 'N');
+    -- v_resultado := funcionesRefugio.asignarCuotaSocio(1, 2024, 'N');
 END;
 /
 

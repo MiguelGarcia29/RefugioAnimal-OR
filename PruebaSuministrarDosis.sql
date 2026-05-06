@@ -4,7 +4,7 @@ BEGIN
     -- Suponiendo que el Animal ID es 1 y la Vacuna ID es 1
     v_res := funcionesRefugio.suministrarDosis(
         p_id_animal => 1, 
-        p_id_vacuna => 3, 
+        p_id_vacuna => 1, 
         p_fecha     => SYSDATE
     );
 
