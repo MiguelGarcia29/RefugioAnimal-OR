@@ -1,0 +1,19 @@
+Perro:
+    Pastor Alemán 
+    Golden Retriever
+    Beagle
+    Husky Siberiano 
+    Labrador Retriever
+    Chihuahua
+    Border Collie
+    Mestizo
+
+Gato:
+    Común Europeo 
+    Persa 
+    Siamés
+    Maine Coon
+    Bengalí
+    Ragdoll
+    Esfinge
+    Azul Ruso

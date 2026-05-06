@@ -7,10 +7,14 @@ DROP PACKAGE funcionesRefugio;
 DROP SEQUENCE seq_id_animal;
 DROP SEQUENCE seq_vacuna;
 DROP SEQUENCE seq_socio;
+DROP SEQUENCE seq_especie;
+DROP SEQUENCE seq_raza;
 DROP TABLE Table_Animal CASCADE CONSTRAINTS;
 DROP TABLE Tabla_Socio CASCADE CONSTRAINTS;
 DROP TABLE Tabla_Vacuna CASCADE CONSTRAINTS;
 DROP TABLE Tabla_InfoCuota CASCADE CONSTRAINTS;
+DROP TABLE Tabla_Especies CASCADE CONSTRAINTS;
+DROP TABLE Tabla_Razas CASCADE CONSTRAINTS;
 DROP TYPE Tipo_Animal FORCE;
 DROP TYPE Tipo_Lista_Dosis FORCE;
 DROP TYPE Tipo_Dosis FORCE;
@@ -36,6 +40,6 @@ PROMPT *** Creando disparadores...
 @05_disparadores.sql
 
 PROMPT *** Cargando datos iniciales...
-@06_insercion_datos.sql
+@06_insercion.sql
 
 PROMPT *** Instalación completada.

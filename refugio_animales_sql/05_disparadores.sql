@@ -1,21 +1,22 @@
--- 05_disparadores.sql corregido
+-- 05_disparadores.sql
 CREATE OR REPLACE TRIGGER Trigger_SuministrarEsenciales
 BEFORE INSERT ON Table_Animal
 FOR EACH ROW
 DECLARE
-    -- Buscamos las referencias de las vacunas esenciales
     CURSOR c_vacunas IS
         SELECT REF(v) as ref_v
         FROM Tabla_Vacuna v
         WHERE v.esEsencial = 'S' 
-        AND UPPER(v.especie) = UPPER(:NEW.especie);
+        AND v.id_especie = (
+            SELECT id_especie 
+            FROM Tabla_Razas 
+            WHERE id_raza = :NEW.id_raza
+        );
 BEGIN
-    -- Inicializamos la colección si viene nula (por si acaso)
     IF :NEW.Dosis IS NULL THEN
         :NEW.Dosis := Tipo_Lista_Dosis();
     END IF;
 
-    -- Añadimos las dosis directamente al objeto :NEW antes de que se guarde en disco
     FOR r IN c_vacunas LOOP
         :NEW.Dosis.EXTEND;
         :NEW.Dosis(:NEW.Dosis.LAST) := Tipo_Dosis(SYSDATE, r.ref_v);

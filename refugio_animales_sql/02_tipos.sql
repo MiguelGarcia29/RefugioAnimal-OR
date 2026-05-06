@@ -1,9 +1,9 @@
--- Creación de Tipos de Objeto
+-- 02_tipos.sql
 CREATE OR REPLACE TYPE Tipo_Vacuna AS OBJECT(
     id NUMBER,
     nombre VARCHAR2(50),
     esEsencial CHAR(1),
-    especie VARCHAR2(50)
+    id_especie NUMBER
 );
 /
 
@@ -20,8 +20,7 @@ CREATE OR REPLACE TYPE Tipo_Animal AS OBJECT(
     id NUMBER,
     nombre VARCHAR2(50),
     fechaNacimiento DATE,
-    especie VARCHAR2(50),
-    raza VARCHAR2(50),
+    id_raza NUMBER,
     color VARCHAR2(20),
     sexo CHAR(1),
     fechaLLegada DATE,
@@ -65,4 +64,8 @@ CREATE OR REPLACE TYPE Tipo_Socio AS OBJECT(
     telefono VARCHAR2(15),
     cuotas Tabla_CuotasPagadas
 ) NOT FINAL; 
+/
+
+-- Tipo adicional necesario para las funciones de retorno de listas
+CREATE OR REPLACE TYPE Lista_Nombres AS TABLE OF VARCHAR2(100);
 /
