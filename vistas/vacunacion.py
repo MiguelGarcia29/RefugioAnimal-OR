@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, uic
+from datetime import datetime
 from vistas.utilidades import rellenar_tabla, cargar_especies
 from vistas.popUpAnimales import abrir_animal
 from conexion import DataBase
@@ -11,6 +12,8 @@ class VacunacionWindow(QtWidgets.QMainWindow):
                 
         self.btn_anadir.clicked.connect(self.abrir_vacunacion)
         self.btn_buscar.clicked.connect(lambda: abrir_animal(self, "buscar"))
+        self.btn_suministrar.clicked.connect(self.suministrar_vacuna)
+        self.btn_eliminar.clicked.connect(self.borrar_vacuna)
         
         self.tabla_vacunacionAnimales.itemSelectionChanged.connect(self.cargar_tablaDosis)
         
@@ -27,7 +30,8 @@ class VacunacionWindow(QtWidgets.QMainWindow):
         if conn:
             try:
                 cursor = conn.cursor()
-                cursor.execute("SELECT ID, NOMBRE, ESESENCIAL FROM TABLA_VACUNA ORDER BY ID ASC")
+                cursor.execute("SELECT v.id, v.nombre, v.esEsencial, e.nombre_especie FROM TABLA_VACUNA v JOIN Tabla_Especies e ON v.id_especie = e.id_especie ORDER BY v.id ASC")                
+
                 filas = cursor.fetchall()
                 
                 rellenar_tabla(self, self.tabla_vacunas, filas)
@@ -87,6 +91,65 @@ class VacunacionWindow(QtWidgets.QMainWindow):
             finally:
                 cursor.close()
                 conn.close()
+                
+    def borrar_vacuna(self):
+        selected = self.tabla_vacunas.currentRow()
+        if selected == -1:
+            return
+        
+        id_vacuna = self.tabla_vacunas.item(selected, 0).text()
+        
+        db = DataBase()
+        conn = db.conectar()
+        cursor = None
+        
+        if conn:
+            try:
+                cursor = conn.cursor()
+                resultado = cursor.callfunc("funcionesRefugio.borrarVacuna", int, [id_vacuna])
+                
+                if resultado == 0:
+                    QtWidgets.QMessageBox.information(self, "Éxito", "Vacuna borrada correctamente")
+                    self.cargar_tablaVacuna()
+                else:
+                    QtWidgets.QMessageBox.critical(self, "Error", "No se pudo borrar la vacuna")
+                
+            except Exception as e:
+                print(f"Error al cargar datos: {e}")
+            finally:
+                cursor.close()
+                conn.close()
+                
+    def suministrar_vacuna(self):
+        selected_animal = self.tabla_vacunacionAnimales.currentRow()
+        selected_vacuna = self.tabla_vacunas.currentRow()
+        if selected_vacuna == -1 or selected_animal == -1:
+            return
+        
+        id_animal = self.tabla_vacunacionAnimales.item(selected_animal, 0).text()
+        id_vacuna = self.tabla_vacunas.item(selected_vacuna, 0).text()
+        
+        db = DataBase()
+        conn = db.conectar()
+        cursor = None
+        
+        if conn:
+            try:
+                cursor = conn.cursor()
+                resultado = cursor.callfunc("funcionesRefugio.suministrarDosis", int, [id_animal, id_vacuna, datetime.now()])
+                
+                if resultado == 0:
+                    QtWidgets.QMessageBox.information(self, "Éxito", "Dosis suministrada correctamente")
+                    self.cargar_tablaDosis()
+                else:
+                    QtWidgets.QMessageBox.critical(self, "Error", "No se pudo suministrar la dosis")
+                
+            except Exception as e:
+                print(f"Error al cargar datos: {e}")
+            finally:
+                cursor.close()
+                conn.close()
+                    
             
 class DialogoVacunacion(QtWidgets.QDialog):
     def __init__(self, parent = None):

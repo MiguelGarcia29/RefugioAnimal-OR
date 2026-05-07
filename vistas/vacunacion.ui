@@ -448,6 +448,17 @@ QPushButton:hover {
                  </widget>
                 </item>
                 <item>
+                 <widget class="QPushButton" name="btn_eliminar">
+                  <property name="text">
+                   <string>Eliminar Vacuna</string>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>img/borrar.png</normaloff>img/borrar.png</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <spacer name="horizontalSpacer_13">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
@@ -490,6 +501,11 @@ QPushButton:hover {
                <column>
                 <property name="text">
                  <string>Esencial</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Especie</string>
                 </property>
                </column>
               </widget>

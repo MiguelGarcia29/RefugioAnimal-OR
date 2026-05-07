@@ -14,6 +14,7 @@ class AnimalesWindow(QtWidgets.QMainWindow):
         self.btn_buscar.clicked.connect(lambda: abrir_animal(self, "buscar"))
         self.btn_anadir.clicked.connect(lambda: abrir_animal(self, "añadir"))
         self.btn_editar.clicked.connect(lambda: abrir_animal(self, "editar"))
+        self.btn_eliminar.clicked.connect(self.borrar_animal)
         
     def cargar_tablaAnimal(self):
         db = DataBase()
@@ -30,6 +31,34 @@ class AnimalesWindow(QtWidgets.QMainWindow):
                 rellenar_tabla(self, self.tabla_animales, filas)
                 self.tabla_animales.setColumnHidden(0, True)
                 self.tabla_animales.horizontalHeader().setStretchLastSection(True)
+                
+            except Exception as e:
+                print(f"Error al cargar datos: {e}")
+            finally:
+                cursor.close()
+                conn.close()
+                
+    def borrar_animal(self):
+        selected = self.tabla_animales.currentRow()
+        if selected == -1:
+            return
+        
+        id_animal = self.tabla_animales.item(selected, 0).text()
+        
+        db = DataBase()
+        conn = db.conectar()
+        cursor = None
+        
+        if conn:
+            try:
+                cursor = conn.cursor()
+                resultado = cursor.callfunc("funcionesRefugio.borrarAnimal", int, [id_animal])
+                
+                if resultado == 0:
+                    QtWidgets.QMessageBox.information(self, "Éxito", "Animal borrado correctamente")
+                    self.cargar_tablaAnimal()
+                else:
+                    QtWidgets.QMessageBox.critical(self, "Error", "No se pudo borrar el animal")
                 
             except Exception as e:
                 print(f"Error al cargar datos: {e}")

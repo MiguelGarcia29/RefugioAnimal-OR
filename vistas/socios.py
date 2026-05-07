@@ -15,6 +15,7 @@ class SociosWindow(QtWidgets.QMainWindow):
         self.btn_buscar.clicked.connect(lambda: self.abrir_socio("buscar"))
         self.btn_anadir.clicked.connect(lambda: self.abrir_socio("añadir"))
         self.btn_editar.clicked.connect(lambda: self.abrir_socio("editar"))
+        # self.btn_eliminar.clicked.connect(self.borrar_socio)
         
     def abrir_socio(self, modo):
         ventana = DialogoSocio(modo, self)
@@ -42,6 +43,35 @@ class SociosWindow(QtWidgets.QMainWindow):
             finally:
                 cursor.close()
                 conn.close()
+                
+    # def borrar_socio(self):
+    #     selected = self.tabla_socios.currentRow()
+    #     if selected == -1:
+    #         return
+        
+    #     id_socio = self.tabla_socios.item(selected, 0).text()
+        
+    #     db = DataBase()
+    #     conn = db.conectar()
+    #     cursor = None
+        
+    #     if conn:
+    #         try:
+    #             cursor = conn.cursor()
+    #             resultado = cursor.callfunc("funcionesRefugio.borrarSocio", int, [id_socio])
+                
+    #             if resultado == 0:
+    #                 QtWidgets.QMessageBox.information(self, "Éxito", "Socio borrado correctamente")
+    #                 self.cargar_tablaSocios()
+    #             else:
+    #                 QtWidgets.QMessageBox.critical(self, "Error", "No se pudo borrar el socio")
+                
+    #         except Exception as e:
+    #             print(f"Error al cargar datos: {e}")
+    #         finally:
+    #             cursor.close()
+    #             conn.close()
+        
             
 class DialogoSocio(QtWidgets.QDialog):
     def __init__(self, modo = "añadir", parent = None):
