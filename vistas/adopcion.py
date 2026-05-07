@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import QtWidgets, uic
 from conexion import DataBase
-from vistas.utilidades import rellenar_tabla
+from vistas.utilidades import rellenar_tabla, cargar_especies, cargar_razas, on_raza_changed
 
 class AdopcionWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -9,16 +9,16 @@ class AdopcionWindow(QtWidgets.QMainWindow):
         # 1. Cargamos la interfaz
         uic.loadUi("vistas/adopcion.ui", self)
                 
-        self.input_especie.model().item(0).setEnabled(False) 
-        self.input_especie.setCurrentIndex(0) # Aseguramos que se vea el placeholder
-        # self.cargar_especie()
+        cargar_especies(self)
+        cargar_razas(self)
+        self.input_especie.currentIndexChanged.connect(lambda: cargar_razas(self))
+        self.input_raza.currentIndexChanged.connect(lambda: on_raza_changed(self))
         
-        self.input_raza.model().item(0).setEnabled(False) 
-        self.input_raza.setCurrentIndex(0)
-        # self.cargar_raza()
-        
+        self.input_sexo.addItem("Sexo", None)
         self.input_sexo.model().item(0).setEnabled(False) 
         self.input_sexo.setCurrentIndex(0)
+        self.input_sexo.addItem("Macho", "M")
+        self.input_sexo.addItem("Hembra", "H")
         
     def cargar_tablaAdopcion(self):
         db = DataBase()

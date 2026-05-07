@@ -1,11 +1,5 @@
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtCore import QDate
-import recursos_rc
-
-def abrir_animal(self, modo):
-    ventana = DialogoAnimal(modo)
-    if ventana.exec_() == QtWidgets.QDialog.Accepted:
-        print("Datos de Animal guardados")
+from PyQt5 import QtWidgets
+from conexion import DataBase
         
 def rellenar_tabla(self, qtable_widget, datos):
         qtable_widget.setRowCount(0)
@@ -19,51 +13,76 @@ def rellenar_tabla(self, qtable_widget, datos):
             for col_idx, value in enumerate(row_data):
                 item = QtWidgets.QTableWidgetItem(str(value) if value is not None else "")
                 qtable_widget.setItem(row_idx, col_idx, item)
-
-class DialogoAnimal(QtWidgets.QDialog):
-    def __init__(self, modo = "añadir"):
-        super().__init__()
-        uic.loadUi("vistas/popUpAnimales.ui", self) # Carga tu diseño bonito
-        
-        self.modo = modo
-        self.configurar_interfaz()
-        
-        # Conectamos el botón confirmar del propio pop-up
-        self.btn_animal.clicked.connect(self.accept)
-        
-        # Hacer que el primer elemento no se pueda elegir una vez abierto
-        self.input_especie.model().item(0).setEnabled(False) 
-        self.input_especie.setCurrentIndex(0) # Aseguramos que se vea el placeholder
-        
-        self.input_raza.model().item(0).setEnabled(False) 
-        self.input_raza.setCurrentIndex(0)
-        
-        self.input_sexo.model().item(0).setEnabled(False) 
-        self.input_sexo.setCurrentIndex(0)
-        
-        # Fijar en hoy la fecha de los calendarios
-        self.input_fechaNacimiento.calendarWidget().setSelectedDate(QDate.currentDate())
-        self.input_fechaAdopcion.calendarWidget().setSelectedDate(QDate.currentDate())
-        
-    def configurar_interfaz(self):
-        if self.modo == "añadir":
-            self.titulo.setText("Añadir Animal")
-            # El ID suele ser autoincremental, así que lo ocultamos
-            self.input_id.setVisible(False)
-            self.input_fechaAdopcion.setVisible(False)
-            self.label_adopcion.setVisible(False)
-            self.input_adoptado.setVisible(False)
-            self.btn_animal.setText("Añadir") 
-
-        elif self.modo == "editar":
-            self.titulo.setText("Editar Animal")
-            # En editar, el ID se ve pero no se toca
-            self.input_id.setVisible(False)
-            self.input_adoptado.setVisible(False)
-            self.btn_animal.setText("Editar")
-
-        elif self.modo == "buscar":
-            self.titulo.setText("Buscar Animal")
-            # En buscar, quizás solo queremos ver el nombre y la especie
-            self.btn_animal.setText("Buscar")
+                
+def cargar_especies(self):
+    db = DataBase()
+    conn = db.conectar()
+    if conn:
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT id_especie, nombre_especie FROM Tabla_Especies")
+            self.input_especie.clear()
             
+            self.input_especie.addItem("Especie", None) 
+            self.input_especie.setCurrentIndex(0) # Aseguramos que se vea el placeholder
+            for id_, nombre in cursor.fetchall():
+                self.input_especie.addItem(nombre, id_)
+        finally:
+            cursor.close()
+            conn.close()
+            
+def cargar_razas(self):
+    id_especie = self.input_especie.currentData()
+    db = DataBase()
+    conn = db.conectar()
+    if conn:
+        try:
+            cursor = conn.cursor()
+            
+            if id_especie is None:
+                cursor.execute("""
+                    SELECT id_raza, nombre_raza
+                    FROM Tabla_Razas
+                """)
+            else:
+                cursor.execute("""
+                    SELECT id_raza, nombre_raza
+                    FROM Tabla_Razas
+                    WHERE id_especie = :id
+                """, {"id": id_especie})
+            self.input_raza.clear()
+            
+            self.input_raza.addItem("Raza", None) 
+            self.input_raza.setCurrentIndex(0)
+            for id_, nombre in cursor.fetchall():
+                self.input_raza.addItem(nombre, id_)
+        finally:
+            cursor.close()
+            conn.close()
+            
+def on_raza_changed(self):
+    id_raza = self.input_raza.currentData()
+    if id_raza is None:
+        return
+    db = DataBase()
+    conn = db.conectar()
+    if conn:
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT id_especie
+                FROM Tabla_Razas
+                WHERE id_raza = :id
+            """, {"id": id_raza})
+            row = cursor.fetchone()
+            if not row:
+                return
+            id_especie = row[0]
+            self.input_especie.blockSignals(True)
+            index = self.input_especie.findData(id_especie)
+            if index != -1:
+                self.input_especie.setCurrentIndex(index)
+            self.input_especie.blockSignals(False)
+        finally:
+            cursor.close()
+            conn.close()

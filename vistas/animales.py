@@ -1,7 +1,8 @@
-import sys
 from PyQt5 import QtWidgets, uic
-from vistas.utilidades import abrir_animal, rellenar_tabla
+from vistas.utilidades import rellenar_tabla
 from conexion import DataBase
+from vistas.popUpAnimales import abrir_animal
+
 
 class AnimalesWindow(QtWidgets.QMainWindow):
     def __init__(self):

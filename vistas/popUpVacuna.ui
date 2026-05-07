@@ -246,13 +246,6 @@ QCheckBox::indicator:disabled {
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="input_descripcion">
-        <property name="placeholderText">
-         <string>Descripción</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QCheckBox" name="input_esencial">
         <property name="minimumSize">
          <size>

@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, uic
-from vistas.utilidades import abrir_animal, rellenar_tabla
+from vistas.utilidades import rellenar_tabla, cargar_especies
+from vistas.popUpAnimales import abrir_animal
 from conexion import DataBase
 
 class VacunacionWindow(QtWidgets.QMainWindow):
@@ -14,7 +15,7 @@ class VacunacionWindow(QtWidgets.QMainWindow):
         self.tabla_vacunacionAnimales.itemSelectionChanged.connect(self.cargar_tablaDosis)
         
     def abrir_vacunacion(self):
-        ventana = DialogoVacunacion()
+        ventana = DialogoVacunacion(self)
         if ventana.exec_() == QtWidgets.QDialog.Accepted:
             print("Datos de Adopción guardados")
             
@@ -88,13 +89,71 @@ class VacunacionWindow(QtWidgets.QMainWindow):
                 conn.close()
             
 class DialogoVacunacion(QtWidgets.QDialog):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None):
+        super().__init__(parent)
         uic.loadUi("vistas/popUpVacuna.ui", self) # Carga tu diseño bonito
         
         # Conectamos el botón confirmar del propio pop-up
-        self.btn_vacuna.clicked.connect(self.accept)
+        self.btn_vacuna.clicked.connect(self.insertar_vacuna)
         
-        # Hacer que el primer elemento no se pueda elegir una vez abierto
-        self.input_especie.model().item(0).setEnabled(False) 
-        self.input_especie.setCurrentIndex(0)
+        cargar_especies(self)
+        
+    def obtener_datos(self):
+        return {
+            "nombre": self.input_nombre.text().strip(),
+            "id_especie": self.input_especie.currentData(),
+            "esencial": "Y" if self.input_esencial.isChecked() else "N"
+        }
+        
+    def validar_datos(self, datos):
+        if not datos["nombre"]:
+            QtWidgets.QMessageBox.warning(self, "Error", "El nombre es obligatorio")
+            return False
+
+        if datos["id_especie"] is None:
+            QtWidgets.QMessageBox.warning(self, "Error", "Debes seleccionar una especie")
+            return False
+
+        if datos["esencial"] not in ("Y", "N"):
+            QtWidgets.QMessageBox.warning(self, "Error", "Debes seleccionar si es esencial")
+            return False
+
+        return True
+    
+    def insertar_vacuna(self):
+        datos = self.obtener_datos()
+        if not self.validar_datos(datos):
+            return
+        
+        db = DataBase()
+        conn = db.conectar()
+
+        if conn:
+            try:
+                cursor = conn.cursor()
+
+                resultado = cursor.callfunc(
+                    "funcionesRefugio.crearVacuna",
+                    int,
+                    [
+                        datos["nombre"],
+                        datos["esencial"],
+                        datos["id_especie"]
+                        
+                    ]
+                )
+
+                if resultado == 0:
+                    QtWidgets.QMessageBox.information(self, "Éxito", "Vacuna añadida correctamente")
+                    self.parent().cargar_tablaVacuna()
+                    self.accept()
+                else:
+                    QtWidgets.QMessageBox.critical(self, "Error", "No se pudo añadir la vacuna")
+                
+
+            except Exception as e:
+                print("Error BD:", e)
+            finally:
+                cursor.close()
+                conn.close()
+        

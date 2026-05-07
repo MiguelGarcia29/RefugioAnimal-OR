@@ -336,21 +336,6 @@ QComboBox QAbstractItemView {
                  <height>250</height>
                 </size>
                </property>
-               <item>
-                <property name="text">
-                 <string>Sexo</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Macho</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Hembra</string>
-                </property>
-               </item>
               </widget>
              </item>
              <item>
