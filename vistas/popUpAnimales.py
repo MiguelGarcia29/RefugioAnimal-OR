@@ -3,17 +3,18 @@ from PyQt5.QtCore import QDate
 from vistas.utilidades import cargar_razas, cargar_especies, on_raza_changed, rellenar_tabla
 from conexion import DataBase
 
-def abrir_animal(self, modo):
-    ventana = DialogoAnimal(modo, self)
+def abrir_animal(self, modo, tabla_destino):
+    ventana = DialogoAnimal(modo = modo, parent = self, tabla_destino = tabla_destino)
     if ventana.exec_() == QtWidgets.QDialog.Accepted:
         print("Datos de Animal guardados")
 
 class DialogoAnimal(QtWidgets.QDialog):
-    def __init__(self, modo = "añadir", parent = None):
+    def __init__(self, modo = "añadir", tabla_destino = None, parent = None):
         super().__init__(parent)
         uic.loadUi("vistas/popUpAnimales.ui", self) # Carga tu diseño bonito
         
         self.modo = modo
+        self.tabla_destino = tabla_destino
         self.configurar_interfaz()
         
         # Cargamos las razas y especies en los selectores
@@ -53,14 +54,20 @@ class DialogoAnimal(QtWidgets.QDialog):
         elif self.modo == "buscar":
             self.titulo.setText("Buscar Animal")
             self.btn_animal.setText("Buscar")
+            self.label_nacimiento.setVisible(False)
+            self.input_fechaNacimiento.setVisible(False)
+            self.label_adopcion.setVisible(False)
+            self.input_fechaAdopcion.setVisible(False)
             self.btn_animal.clicked.connect(self.buscar_animal)
+            from vistas.adopcion import AdopcionWindow
+            if isinstance(self.parent(), AdopcionWindow):
+                self.input_adoptado.setVisible(False)
             
     def obtener_datos(self):
         return {
             "id": self.input_id.text().strip(),
             "nombre": self.input_nombre.text().strip(),
             "fechaNacimiento": self.input_fechaNacimiento.date().toPyDate(),
-            "fechaAdopcion": self.input_fechaAdopcion.date().toPyDate(),
             "id_especie": self.input_especie.currentData(),
             "id_raza": self.input_raza.currentData(),
             "color": self.input_color.text().strip(),
@@ -180,7 +187,7 @@ class DialogoAnimal(QtWidgets.QDialog):
                 # RECARGAR TABLA DEL PADRE
                 rellenar_tabla(
                     self.parent(),
-                    self.parent().tabla_animales,
+                    self.tabla_destino,
                     filas
                 )
 

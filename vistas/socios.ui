@@ -348,7 +348,7 @@ QPushButton:hover {
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="btn_pagarCuota">
                <property name="text">
                 <string>Pagar Cuota</string>
                </property>
@@ -414,7 +414,7 @@ QPushButton:hover {
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_2">
+              <widget class="QPushButton" name="btn_nuevaCuota">
                <property name="text">
                 <string>Nueva Cuota</string>
                </property>

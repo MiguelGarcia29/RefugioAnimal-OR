@@ -235,169 +235,6 @@ QTableWidget::item {
            </widget>
           </item>
           <item>
-           <widget class="QFrame" name="frame_7">
-            <property name="styleSheet">
-             <string notr="true">QLineEdit {
-    background-color: #ffffff; /* Fondo blanco puro */
-    border: 1px solid #999999; /* Un borde gris muy sutil y claro */
-    border-radius: 6px; /* Bordes redondeados sutiles */
-    font-size: 13px;
-    color: #333333; /* Texto gris oscuro para mejor lectura */
-    padding: 8px; /* Padding interior para que el texto no toque el borde */
-    selection-background-color: #a8d5a2; /* Color cuando seleccionas texto dentro */
-}
-
-/* Efecto al hacer clic para escribir (Focus) */
-QLineEdit:focus {
-    border: 1px solid #3eb038; /* El borde se vuelve verde para indicar que está activo */
-    background-color: #f8fff8; /* Un fondo muy sutilmente verde claro */
-}
-
-/* Efecto si el QLineEdit está deshabilitado */
-QLineEdit:disabled {
-    background-color: #f2f2f2;
-    color: #aaaaaa;
-    border: 1px solid #e0e0e0;
-}
-
-QLineEdit::placeholder {
-    color: #999999;
-    font-style: italic;
-}
-
-QComboBox {
-    background-color: white;
-    border: 1px solid #999999;
-    border-radius: 6px;
-    padding: 5px 10px;
-    min-width: 6em;
-    color: #333333;
-}
-
-/* Estilo del botón de la flechita */
-QComboBox::drop-down {
-    border: none;
-    width: 30px;
-}
-
-/* Estilo de la flechita (puedes usar una imagen o un caracter) */
-QComboBox::down-arrow {
-    width: 12px;
-    height: 12px;
-}
-
-/* Estilo de la lista desplegable cuando se abre */
-QComboBox QAbstractItemView {
-    border: 1px solid #dcdcdc;
-    selection-background-color: #3eb038; /* Color verde al pasar el ratón */
-    selection-color: white;
-    background-color: white;
-    outline: none;
-}</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_10">
-             <item>
-              <spacer name="horizontalSpacer_10">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="input_nombre">
-               <property name="maximumSize">
-                <size>
-                 <width>250</width>
-                 <height>250</height>
-                </size>
-               </property>
-               <property name="placeholderText">
-                <string>Nombre</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="input_sexo">
-               <property name="maximumSize">
-                <size>
-                 <width>250</width>
-                 <height>250</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="input_color">
-               <property name="maximumSize">
-                <size>
-                 <width>250</width>
-                 <height>250</height>
-                </size>
-               </property>
-               <property name="placeholderText">
-                <string>Color</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="input_especie">
-               <property name="maximumSize">
-                <size>
-                 <width>250</width>
-                 <height>250</height>
-                </size>
-               </property>
-               <item>
-                <property name="text">
-                 <string>Especie</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="input_raza">
-               <property name="maximumSize">
-                <size>
-                 <width>250</width>
-                 <height>250</height>
-                </size>
-               </property>
-               <item>
-                <property name="text">
-                 <string>Raza</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_11">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
            <widget class="QFrame" name="frame_8">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -406,6 +243,9 @@ QComboBox QAbstractItemView {
              <enum>QFrame::Raised</enum>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <property name="spacing">
+              <number>50</number>
+             </property>
              <item>
               <spacer name="horizontalSpacer_12">
                <property name="orientation">
@@ -454,19 +294,6 @@ QPushButton:pressed {
                 <string>Adoptar</string>
                </property>
               </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_16">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
              </item>
              <item>
               <widget class="QPushButton" name="btn_buscar">

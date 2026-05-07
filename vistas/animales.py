@@ -11,7 +11,7 @@ class AnimalesWindow(QtWidgets.QMainWindow):
         uic.loadUi("vistas/animales.ui", self)
             
         # Abrir el popUp mediante funcion de utilidades
-        self.btn_buscar.clicked.connect(lambda: abrir_animal(self, "buscar"))
+        self.btn_buscar.clicked.connect(lambda: abrir_animal(self, "buscar", self.tabla_animales))
         self.btn_anadir.clicked.connect(lambda: abrir_animal(self, "añadir"))
         self.btn_editar.clicked.connect(lambda: abrir_animal(self, "editar"))
         self.btn_eliminar.clicked.connect(self.borrar_animal)

@@ -15,12 +15,19 @@ class SociosWindow(QtWidgets.QMainWindow):
         self.btn_buscar.clicked.connect(lambda: self.abrir_socio("buscar"))
         self.btn_anadir.clicked.connect(lambda: self.abrir_socio("añadir"))
         self.btn_editar.clicked.connect(lambda: self.abrir_socio("editar"))
+        self.btn_nuevaCuota.clicked.connect(self.abrir_cuota)
+        # self.btn_pagarCuota.clicked.connect(self.pagar_cuota)
         # self.btn_eliminar.clicked.connect(self.borrar_socio)
         
     def abrir_socio(self, modo):
         ventana = DialogoSocio(modo, self)
         if ventana.exec_() == QtWidgets.QDialog.Accepted:
             print("Datos de Socio guardados")
+            
+    def abrir_cuota(self):
+        ventana = DialogoCuota(self)
+        if ventana.exec_() == QtWidgets.QDialog.Accepted:
+            print("Datos de Cuota guardados")
             
     def cargar_tablaSocios(self):
         db = DataBase()
@@ -71,6 +78,34 @@ class SociosWindow(QtWidgets.QMainWindow):
     #         finally:
     #             cursor.close()
     #             conn.close()
+    
+    # def pagar_cuota(self):
+    #     selected = self.tabla_socios.currentRow()
+    #     if selected == -1:
+    #         return
+        
+    #     id_socio = self.tabla_socios.item(selected, 0).text()
+        
+    #     db = DataBase()
+    #     conn = db.conectar()
+    #     cursor = None
+        
+    #     if conn:
+    #         try:
+    #             cursor = conn.cursor()
+    #             resultado = cursor.callfunc("funcionesRefugio.asignarCuotaSocio", int, [id_socio])
+                
+    #             if resultado == 0:
+    #                 QtWidgets.QMessageBox.information(self, "Éxito", "Socio borrado correctamente")
+    #                 self.cargar_tablaSocios()
+    #             else:
+    #                 QtWidgets.QMessageBox.critical(self, "Error", "No se pudo borrar el socio")
+                
+    #         except Exception as e:
+    #             print(f"Error al cargar datos: {e}")
+    #         finally:
+    #             cursor.close()
+    #             conn.close()
         
             
 class DialogoSocio(QtWidgets.QDialog):
@@ -102,11 +137,14 @@ class DialogoSocio(QtWidgets.QDialog):
 
         elif self.modo == "buscar":
             self.titulo.setText("Buscar Socio")
-            # En buscar, quizás solo queremos ver el nombre y la especie
             self.btn_socio.setText("Buscar")
+            self.label_fechaNacimiento.setVisible(False)
+            self.input_fechaNacimiento.setVisible(False)
+            self.btn_socio.clicked.connect(self.buscar_socio)
             
     def obtener_datos(self):
         return {
+            "id": self.input_id.text().strip(),
             "nombre": self.input_nombre.text().strip(),
             "dni": self.input_dni.text().strip(),
             "direccion": self.input_direccion.text().strip(),
@@ -163,6 +201,101 @@ class DialogoSocio(QtWidgets.QDialog):
                     self.accept()
                 else:
                     QtWidgets.QMessageBox.critical(self, "Error", "No se pudo añadir el socio")
+                
+
+            except Exception as e:
+                print("Error BD:", e)
+            finally:
+                cursor.close()
+                conn.close()
+                
+    def buscar_socio(self):
+        datos = self.obtener_datos()
+        
+        db = DataBase()
+        conn = db.conectar()
+        cursor = None
+        if conn:
+            try:
+                
+                cursor = conn.cursor()
+                query = "SELECT S.ID, S.NOMBRE, S.DNI, S.DIRECCION, S.TELEFONO, TO_CHAR(S.FECHANACIMIENTO, 'DD/MM/YY'), COUNT(CASE WHEN c.pagada = 'N' THEN 1 END) AS cuotas_impagadas FROM TABLA_SOCIO s LEFT JOIN TABLE(s.cuotas) c ON 1 = 1 WHERE 1=1"
+                
+                parametros = {}
+                
+                if datos["id"]:
+                    query += " AND S.ID = :id"
+                    parametros["id"] = datos["id"]
+                
+                if datos["nombre"]:
+                    query += " AND LOWER(s.nombre) LIKE LOWER(:nombre)"
+                    parametros["nombre"] = f"%{datos['nombre']}%"
+                    
+                if datos["dni"]:
+                    query += " AND s.dni = :dni"
+                    parametros["dni"] = datos["dni"]
+                    
+                if datos["direccion"]:
+                    query += " AND LOWER(s.direccion) LIKE LOWER(:direccion)"
+                    parametros["direccion"] = f"%{datos['direccion']}%"     
+                    
+                if datos["telefono"]:
+                    query += " AND s.telefono = :telefono"
+                    parametros["telefono"] = datos["telefono"]      
+                    
+                # Agrupacion
+                query += " GROUP BY S.ID, S.NOMBRE, S.DNI, S.DIRECCION, S.TELEFONO, S.FECHANACIMIENTO"
+                
+                cursor.execute(query, parametros)
+                
+                filas = cursor.fetchall()
+
+                # RECARGAR TABLA DEL PADRE
+                rellenar_tabla(
+                    self.parent(),
+                    self.parent().tabla_socios,
+                    filas
+                )
+
+                self.accept()
+
+            except Exception as e:
+                print("Error búsqueda:", e)
+
+            finally:
+                cursor.close()
+                conn.close()      
+                
+class DialogoCuota(QtWidgets.QDialog):
+    def __init__(self, parent = None):
+        super().__init__(parent)
+        uic.loadUi("vistas/popUpCuota.ui", self)
+        
+        self.btn_cuota.clicked.connect(self.crear_cuota)
+        
+    def crear_cuota(self):
+        importe = self.input_importe.text().strip()
+        ejercicio = self.input_ejercicio.text().strip()
+        
+        if importe is None or ejercicio is None:
+            return
+        
+        db = DataBase()
+        conn = db.conectar()
+        cursor = None
+        
+        if conn:
+            try:
+                cursor = conn.cursor()
+                
+                resultado = cursor.callfunc("funcionesRefugio.insertarCuota", int, [ejercicio, importe])
+                
+                if resultado == 0:
+                    QtWidgets.QMessageBox.information(self, "Éxito", "Cuota añadida correctamente")
+                    self.parent().cargar_tablaSocios()
+                    self.accept()
+                else:
+                    QtWidgets.QMessageBox.critical(self, "Error", "No se pudo añadir la cuota")
                 
 
             except Exception as e:

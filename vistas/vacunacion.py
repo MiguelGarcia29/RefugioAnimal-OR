@@ -11,7 +11,7 @@ class VacunacionWindow(QtWidgets.QMainWindow):
         uic.loadUi("vistas/vacunacion.ui", self)
                 
         self.btn_anadir.clicked.connect(self.abrir_vacunacion)
-        self.btn_buscar.clicked.connect(lambda: abrir_animal(self, "buscar"))
+        self.btn_buscar.clicked.connect(lambda: abrir_animal(self, "buscar", self.tabla_vacunacionAnimales))
         self.btn_suministrar.clicked.connect(self.suministrar_vacuna)
         self.btn_eliminar.clicked.connect(self.borrar_vacuna)
         
@@ -52,11 +52,14 @@ class VacunacionWindow(QtWidgets.QMainWindow):
         if conn:
             try:
                 cursor = conn.cursor()
-                cursor.execute("SELECT a.id, a.nombre, a.sexo, e.nombre_especie AS especie, r.nombre_raza AS raza, TO_CHAR(a.fechaNacimiento, 'DD/MM/YYYY') AS fecha_nacimiento, TO_CHAR(a.fechaAdopcion, 'DD/MM/YYYY') AS fecha_adopcion FROM TABLE_ANIMAL a JOIN Tabla_Razas r ON a.id_raza = r.id_raza JOIN Tabla_Especies e ON r.id_especie = e.id_especie ORDER BY a.id ASC")
+                cursor.execute("SELECT a.id, a.nombre, a.sexo, TO_CHAR(a.fechaNacimiento, 'DD/MM/YYYY') AS fecha_nacimiento, a.color, e.nombre_especie AS especie, r.nombre_raza AS raza, TO_CHAR(a.fechaLlegada, 'DD/MM/YYYY') AS fecha_llegada, TO_CHAR(a.fechaAdopcion, 'DD/MM/YYYY') AS fecha_adopcion, a.caracteristicas  FROM TABLE_ANIMAL a JOIN Tabla_Razas r ON a.id_raza = r.id_raza JOIN Tabla_Especies e ON r.id_especie = e.id_especie ORDER BY a.id ASC")
                 filas = cursor.fetchall()
                               
                 rellenar_tabla(self, self.tabla_vacunacionAnimales, filas)
                 self.tabla_vacunacionAnimales.setColumnHidden(0, True)
+                self.tabla_vacunacionAnimales.setColumnHidden(4, True)
+                self.tabla_vacunacionAnimales.setColumnHidden(7, True)
+                self.tabla_vacunacionAnimales.setColumnHidden(9, True)
                 self.tabla_vacunacionAnimales.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
                 
             except Exception as e:

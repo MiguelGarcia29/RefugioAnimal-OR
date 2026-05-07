@@ -6,26 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>800</height>
+    <width>500</width>
+    <height>650</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>400</width>
-    <height>400</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>800</width>
-    <height>800</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,6,1">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,6,2">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -67,7 +55,7 @@
       <item>
        <widget class="QLabel" name="titulo">
         <property name="text">
-         <string>TextLabel</string>
+         <string>Crear Cuota</string>
         </property>
        </widget>
       </item>
@@ -78,7 +66,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>571</width>
+          <width>457</width>
           <height>20</height>
          </size>
         </property>
@@ -88,7 +76,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QFrame" name="frame">
+    <widget class="QFrame" name="frame_2">
      <property name="styleSheet">
       <string notr="true">.QFrame{
 	background-color:white;
@@ -164,7 +152,7 @@ QCheckBox::indicator:checked {
 QDateEdit::drop-down {
     subcontrol-origin: padding;
     subcontrol-position: top right;
-    width: 250px; /* Lo hacemos ancho para que sea fácil de clicar */
+    width: 275px; /* Lo hacemos ancho para que sea fácil de clicar */
     border-left: 1px solid #dcdcdc; /* Una rayita separadora */
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -235,82 +223,60 @@ QCheckBox::indicator:disabled {
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <property name="topMargin">
-       <number>40</number>
-      </property>
-      <property name="horizontalSpacing">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
        <number>10</number>
       </property>
-      <property name="verticalSpacing">
-       <number>20</number>
+      <property name="topMargin">
+       <number>15</number>
       </property>
-      <item row="9" column="0">
-       <widget class="QLabel" name="label_adopcion">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>10</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Fecha de Adopción:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="0">
-       <widget class="QDateEdit" name="input_fechaAdopcion">
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="specialValueText">
-         <string/>
-        </property>
-        <property name="dateTime">
-         <datetime>
-          <hour>0</hour>
-          <minute>0</minute>
-          <second>0</second>
-          <year>1752</year>
-          <month>9</month>
-          <day>14</day>
-         </datetime>
-        </property>
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
+      <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>20</height>
+          <height>40</height>
          </size>
         </property>
        </spacer>
       </item>
-      <item row="1" column="0">
-       <widget class="QLineEdit" name="input_id">
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="placeholderText">
-         <string>ID</string>
+      <item>
+       <widget class="QLabel" name="label_importe">
+        <property name="text">
+         <string>Importe:</string>
         </property>
        </widget>
       </item>
-      <item row="11" column="0">
+      <item>
+       <widget class="QLineEdit" name="input_importe"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_ejercicio">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>75</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Ejercicio:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="input_ejercicio">
+        <property name="maximumSize">
+         <size>
+          <width>550</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="verticalSpacer_2">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -323,126 +289,11 @@ QCheckBox::indicator:disabled {
         </property>
        </spacer>
       </item>
-      <item row="2" column="0">
-       <widget class="QLineEdit" name="input_nombre">
-        <property name="maximumSize">
-         <size>
-          <width>500</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="placeholderText">
-         <string>Nombre</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QDateEdit" name="input_fechaNacimiento">
-        <property name="readOnly">
-         <bool>false</bool>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::UpDownArrows</enum>
-        </property>
-        <property name="specialValueText">
-         <string/>
-        </property>
-        <property name="dateTime">
-         <datetime>
-          <hour>0</hour>
-          <minute>0</minute>
-          <second>0</second>
-          <year>1752</year>
-          <month>9</month>
-          <day>14</day>
-         </datetime>
-        </property>
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLineEdit" name="input_caracteristicas">
-        <property name="maximumSize">
-         <size>
-          <width>500</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="placeholderText">
-         <string>Características</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="input_especie">
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>16777215</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QComboBox" name="input_raza">
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>16777215</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_nacimiento">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>10</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Fecha de Nacimiento:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLineEdit" name="input_color">
-        <property name="maximumSize">
-         <size>
-          <width>500</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="placeholderText">
-         <string>Color</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QComboBox" name="input_sexo">
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>16777215</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1">
-       <widget class="QCheckBox" name="input_adoptado">
-        <property name="text">
-         <string>Adoptado</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
    <item>
-    <widget class="QFrame" name="frame_2">
+    <widget class="QFrame" name="frame">
      <property name="styleSheet">
       <string notr="true">.QFrame{
 	background-color: white;
@@ -490,16 +341,16 @@ QPushButton:pressed {
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
+          <width>207</width>
           <height>20</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_animal">
+       <widget class="QPushButton" name="btn_cuota">
         <property name="text">
-         <string>Confimar</string>
+         <string>Confirmar</string>
         </property>
        </widget>
       </item>
@@ -510,7 +361,7 @@ QPushButton:pressed {
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
+          <width>207</width>
           <height>20</height>
          </size>
         </property>
@@ -521,8 +372,6 @@ QPushButton:pressed {
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="img/recursos.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

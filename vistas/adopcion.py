@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, uic
 from conexion import DataBase
 from vistas.utilidades import rellenar_tabla, cargar_especies, cargar_razas, on_raza_changed
+from vistas.popUpAnimales import abrir_animal
 
 class AdopcionWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -8,17 +9,8 @@ class AdopcionWindow(QtWidgets.QMainWindow):
         # 1. Cargamos la interfaz
         uic.loadUi("vistas/adopcion.ui", self)
                 
-        cargar_especies(self)
-        cargar_razas(self)
-        self.input_especie.currentIndexChanged.connect(lambda: cargar_razas(self))
-        self.input_raza.currentIndexChanged.connect(lambda: on_raza_changed(self))
         self.btn_adoptar.clicked.connect(self.adoptar_animal)
-        
-        self.input_sexo.addItem("Sexo", None)
-        self.input_sexo.model().item(0).setEnabled(False) 
-        self.input_sexo.setCurrentIndex(0)
-        self.input_sexo.addItem("Macho", "M")
-        self.input_sexo.addItem("Hembra", "H")
+        self.btn_buscar.clicked.connect(lambda: abrir_animal(self, "buscar", self.tabla_adopcion))
         
     def cargar_tablaAdopcion(self):
         db = DataBase()
