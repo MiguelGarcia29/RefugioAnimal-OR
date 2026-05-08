@@ -18,3 +18,14 @@ END;
 
 SELECT DEREF(vacuna).nombre as nombre_vacuna, fechaAdministracion
 FROM TABLE(SELECT Dosis FROM Table_Animal WHERE id = 1);
+
+SELECT 
+    a.nombre AS Animal,
+    d.fechaAdministracion,
+    DEREF(d.vacuna).nombre AS Nombre_Vacuna,
+    DEREF(d.vacuna).esEsencial AS Esencial
+FROM 
+    Table_Animal a,
+    TABLE(a.Dosis) d
+WHERE 
+    a.id = :1; -- Sustituye :id_animal por el ID deseado (ej. 1)
