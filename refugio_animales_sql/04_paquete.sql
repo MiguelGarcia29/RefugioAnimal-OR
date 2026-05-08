@@ -9,6 +9,7 @@ CREATE OR REPLACE PACKAGE funcionesRefugio AS
     FUNCTION borrarVacuna(p_id IN NUMBER) RETURN NUMBER;
     FUNCTION suministrarDosis(p_id_animal IN NUMBER, p_id_vacuna IN NUMBER, p_fecha DATE) RETURN NUMBER;
     FUNCTION insertarSocio(p_nombre VARCHAR2, p_fechaNacimiento DATE, p_dni VARCHAR2, p_direccion VARCHAR2, p_telefono VARCHAR2) RETURN NUMBER;
+    FUNCTION borrarSocio(p_id IN NUMBER) RETURN NUMBER;
     FUNCTION insertarCuota(p_ejercicio NUMBER, p_importe NUMBER) RETURN NUMBER;
     FUNCTION asignarCuotaSocio(p_id_socio NUMBER, p_ejercicio NUMBER, p_pagada CHAR) RETURN NUMBER;
     FUNCTION obtenerRazasPorEspecie(p_nombre_especie VARCHAR2) RETURN Lista_Nombres;
@@ -139,6 +140,23 @@ CREATE OR REPLACE PACKAGE BODY funcionesRefugio AS
         RETURN 0;
     EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
     END;
+
+    FUNCTION borrarSocio(p_id IN NUMBER) RETURN NUMBER IS
+    BEGIN
+    DELETE FROM Tabla_Socio WHERE id = p_id;
+
+    -- Si no se ha borrado nada (ID no existe), devolvemos -1
+    IF SQL%ROWCOUNT = 0 THEN 
+        RETURN -1; 
+    END IF;
+
+    COMMIT;
+    RETURN 0;
+    EXCEPTION 
+    WHEN OTHERS THEN 
+        ROLLBACK; 
+        RETURN -1;
+    END borrarSocio;
 
     FUNCTION insertarCuota (p_ejercicio NUMBER, p_importe NUMBER) RETURN NUMBER IS
     BEGIN
