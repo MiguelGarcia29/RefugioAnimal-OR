@@ -1,15 +1,26 @@
 import oracledb
+import configparser
+import os
 
 class DataBase:
     def __init__(self):
-        # Datos de conexión (Ajusta con los que te dio tu profesor)
-        self.user = "refugio"
-        self.password = "refugio"
-        self.dsn = "localhost:1521/xepdb1" # Host:Puerto/Servicio
+       # 1. Instanciar el lector de archivos .ini
+        config = configparser.ConfigParser()
+        
+  
+        ruta_archivo = os.path.join(os.path.dirname(__file__), 'datos.ini')
+        config.read(ruta_archivo)
+
+        try:
+            self.user = config['ORACLE']['user']
+            self.password = config['ORACLE']['password']
+            self.dsn = config['ORACLE']['dsn']
+        except KeyError as e:
+            print(f"Error: No se encontró la clave {e} en el archivo datos.ini")
+            self.user = self.password = self.dsn = None
 
     def conectar(self):
         try:
-            # El modo Thin no necesita Oracle Client instalado
             conexion = oracledb.connect(
                 user=self.user,
                 password=self.password,
