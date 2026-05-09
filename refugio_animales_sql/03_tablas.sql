@@ -18,7 +18,9 @@ CREATE TABLE Tabla_Razas (
 /
 
 CREATE TABLE Tabla_Vacuna OF Tipo_Vacuna(
-    CONSTRAINT PK_Tabla_Vacuna PRIMARY KEY(id)
+    CONSTRAINT PK_Tabla_Vacuna PRIMARY KEY(id),
+    CONSTRAINT FK_Tabla_Vacuna FOREIGN KEY (id_especie) 
+        REFERENCES Tabla_Especies(id_especie)
 );
 /
 
