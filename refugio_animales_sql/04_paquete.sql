@@ -10,6 +10,7 @@ CREATE OR REPLACE PACKAGE funcionesRefugio AS
     FUNCTION suministrarDosis(p_id_animal IN NUMBER, p_id_vacuna IN NUMBER, p_fecha DATE) RETURN NUMBER;
     FUNCTION insertarSocio(p_nombre VARCHAR2, p_fechaNacimiento DATE, p_dni VARCHAR2, p_direccion VARCHAR2, p_telefono VARCHAR2) RETURN NUMBER;
     FUNCTION borrarSocio(p_id IN NUMBER) RETURN NUMBER;
+    FUNCTION actualizarSocio(p_id IN NUMBER, p_nombre VARCHAR2, p_fechaNacimiento DATE, p_dni VARCHAR2, p_direccion VARCHAR2, p_telefono VARCHAR2) RETURN NUMBER;
     FUNCTION insertarCuota(p_ejercicio NUMBER, p_importe NUMBER) RETURN NUMBER;
     FUNCTION asignarCuotaSocio(p_id_socio NUMBER, p_ejercicio NUMBER, p_pagada CHAR) RETURN NUMBER;
     FUNCTION obtenerRazasPorEspecie(p_nombre_especie VARCHAR2) RETURN Lista_Nombres;
@@ -157,6 +158,36 @@ CREATE OR REPLACE PACKAGE BODY funcionesRefugio AS
         ROLLBACK; 
         RETURN -1;
     END borrarSocio;
+
+    FUNCTION actualizarSocio(
+        p_id IN NUMBER, 
+        p_nombre VARCHAR2, 
+        p_fechaNacimiento DATE, 
+        p_dni VARCHAR2, 
+        p_direccion VARCHAR2, 
+        p_telefono VARCHAR2
+    ) RETURN NUMBER IS
+    BEGIN
+        UPDATE Tabla_Socio SET 
+            nombre = p_nombre, 
+            fechaNacimiento = p_fechaNacimiento, 
+            dni = p_dni, 
+            direccion = p_direccion, 
+            telefono = p_telefono
+        WHERE id = p_id;
+        
+        IF SQL%ROWCOUNT = 0 THEN 
+            RETURN -1; 
+        END IF;
+        
+        COMMIT;
+        RETURN 0;
+        
+    EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK; 
+            RETURN -1;
+    END;
 
     FUNCTION insertarCuota (p_ejercicio NUMBER, p_importe NUMBER) RETURN NUMBER IS
     BEGIN
