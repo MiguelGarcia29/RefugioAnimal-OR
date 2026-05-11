@@ -125,7 +125,9 @@ class SociosWindow(QtWidgets.QMainWindow):
                 
                 if resultado == 0:
                     QtWidgets.QMessageBox.information(self, "Éxito", "Cuota pagada correctamente")
+                    self.cargar_tablaCuotas()
                     self.cargar_tablaSocios()
+
                 else:
                     QtWidgets.QMessageBox.critical(self, "Error", "No se pudo pagar la cuota")
                 
