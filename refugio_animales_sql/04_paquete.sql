@@ -169,9 +169,19 @@ CREATE OR REPLACE PACKAGE BODY funcionesRefugio AS
     FUNCTION asignarCuotaSocio (p_id_socio NUMBER, p_ejercicio NUMBER, p_pagada CHAR) RETURN NUMBER IS
         v_ref_cuota REF Tipo_InfoCuota;
     BEGIN
-        SELECT REF(c) INTO v_ref_cuota FROM Tabla_InfoCuota c WHERE ejercicio = p_ejercicio;
-        INSERT INTO TABLE(SELECT cuotas FROM Tabla_Socio WHERE id = p_id_socio) 
-        VALUES (Tipo_CuotasPagafas(v_ref_cuota, p_pagada));
+        SELECT REF(c) INTO v_ref_cuota 
+        FROM Tabla_InfoCuota c 
+        WHERE ejercicio = p_ejercicio;
+        
+        UPDATE TABLE(SELECT cuotas FROM Tabla_Socio WHERE id = p_id_socio) c
+        SET c.pagada = p_pagada
+        WHERE c.cuotaPagada = v_ref_cuota;
+        
+    
+        IF SQL%ROWCOUNT = 0 THEN
+            NULL; 
+        END IF;
+
         COMMIT;
         RETURN 0;
     EXCEPTION WHEN OTHERS THEN ROLLBACK; RETURN -1;
