@@ -3,21 +3,22 @@ from PyQt5.QtCore import QDate
 from vistas.utilidades import cargar_razas, cargar_especies, on_raza_changed, rellenar_tabla
 from conexion import DataBase
 
-def abrir_animal(self, modo, tabla_destino):
-    ventana = DialogoAnimal(modo = modo, parent = self, tabla_destino = tabla_destino)
+def abrir_animal(self, modo, tabla_destino, id_animal=None): 
+    ventana = DialogoAnimal(modo=modo, parent=self, tabla_destino=tabla_destino, id_animal=id_animal)
     if ventana.exec_() == QtWidgets.QDialog.Accepted:
         print("Datos de Animal guardados")
 
 class DialogoAnimal(QtWidgets.QDialog):
-    def __init__(self, modo = "añadir", tabla_destino = None, parent = None):
+    def __init__(self, modo="añadir", tabla_destino=None, parent=None, id_animal=None): 
         super().__init__(parent)
-        uic.loadUi("vistas/popUpAnimales.ui", self) # Carga tu diseño bonito
+        uic.loadUi("vistas/popUpAnimales.ui", self)
         
         self.modo = modo
         self.tabla_destino = tabla_destino
+        self.id_animal_editar = id_animal 
+        
         self.configurar_interfaz()
         
-        # Cargamos las razas y especies en los selectores
         cargar_especies(self)
         cargar_razas(self)
         self.input_especie.currentIndexChanged.connect(lambda: cargar_razas(self))
@@ -46,6 +47,9 @@ class DialogoAnimal(QtWidgets.QDialog):
 
         elif self.modo == "editar":
             self.titulo.setText("Editar Animal")
+            if self.id_animal_editar:
+                self.input_id.setText(str(self.id_animal_editar))
+                self.input_id.setEnabled(False)
             self.label_nacimiento.setVisible(False)
             self.input_fechaNacimiento.setVisible(False)
             self.label_adopcion.setVisible(False)
@@ -54,6 +58,7 @@ class DialogoAnimal(QtWidgets.QDialog):
             self.input_especie.setVisible(False)
             self.btn_animal.setText("Editar")
             self.btn_animal.clicked.connect(self.editar_animal)
+            
 
         elif self.modo == "buscar":
             self.titulo.setText("Buscar Animal")

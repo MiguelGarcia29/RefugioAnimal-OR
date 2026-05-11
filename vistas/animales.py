@@ -15,7 +15,7 @@ class AnimalesWindow(QtWidgets.QMainWindow):
         # Abrir el popUp mediante funcion de utilidades
         self.btn_buscar.clicked.connect(lambda: abrir_animal(self, "buscar", self.tabla_animales))
         self.btn_anadir.clicked.connect(lambda: abrir_animal(self, "añadir", self.tabla_animales))
-        self.btn_editar.clicked.connect(lambda: abrir_animal(self, "editar", self.tabla_animales))
+        self.btn_editar.clicked.connect(lambda: preparar_edicion(self))
         self.btn_eliminar.clicked.connect(self.borrar_animal)
         
     def cargar_tablaAnimal(self):
@@ -67,3 +67,12 @@ class AnimalesWindow(QtWidgets.QMainWindow):
             finally:
                 cursor.close()
                 conn.close()
+def preparar_edicion(self):
+    selected = self.tabla_animales.currentRow()
+    if selected != -1:
+        # El ID está en la columna 0 (aunque esté oculta)
+        id_animal = self.tabla_animales.item(selected, 0).text()
+        # Llamamos a abrir_animal pasando el ID
+        abrir_animal(self, "editar", self.tabla_animales, id_animal)
+    else:
+        QtWidgets.QMessageBox.warning(self, "Atención", "Por favor, selecciona un animal de la tabla.")
