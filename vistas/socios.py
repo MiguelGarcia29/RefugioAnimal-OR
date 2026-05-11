@@ -1,4 +1,3 @@
-import sys
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QDate
 from conexion import DataBase
@@ -11,13 +10,16 @@ class SociosWindow(QtWidgets.QMainWindow):
         super().__init__()
         # 1. Cargamos la interfaz
         uic.loadUi("vistas/socios.ui", self)
+        
+        self.cargar_tablaSocios()
+        self.cargar_tablaCuotas()
+        self.tabla_socios.itemSelectionChanged.connect(self.cargar_tablaCuotas)
                 
         self.btn_buscar.clicked.connect(lambda: self.abrir_socio("buscar"))
         self.btn_anadir.clicked.connect(lambda: self.abrir_socio("añadir"))
-        self.btn_editar.clicked.connect(lambda: self.abrir_socio("editar"))
         self.btn_nuevaCuota.clicked.connect(self.abrir_cuota)
-        # self.btn_pagarCuota.clicked.connect(self.pagar_cuota)
-        # self.btn_eliminar.clicked.connect(self.borrar_socio)
+        self.btn_pagarCuota.clicked.connect(self.pagar_cuota)
+        self.btn_eliminar.clicked.connect(self.borrar_socio)
         
     def abrir_socio(self, modo):
         ventana = DialogoSocio(modo, self)
@@ -51,61 +53,87 @@ class SociosWindow(QtWidgets.QMainWindow):
                 cursor.close()
                 conn.close()
                 
-    # def borrar_socio(self):
-    #     selected = self.tabla_socios.currentRow()
-    #     if selected == -1:
-    #         return
+    def cargar_tablaCuotas(self):
+        selected = self.tabla_socios.currentRow()
+        if selected == -1:
+            return
         
-    #     id_socio = self.tabla_socios.item(selected, 0).text()
-        
-    #     db = DataBase()
-    #     conn = db.conectar()
-    #     cursor = None
-        
-    #     if conn:
-    #         try:
-    #             cursor = conn.cursor()
-    #             resultado = cursor.callfunc("funcionesRefugio.borrarSocio", int, [id_socio])
+        id_socio = self.tabla_socios.item(selected, 0).text()
+        db = DataBase()
+        conn = db.conectar()
+        cursor = None
+        if conn:
+            try:
+                cursor = conn.cursor()
+                cursor.execute("SELECT q.ejercicio AS ejercicio, q.importe AS importe, c.pagada AS estado FROM Tabla_Socio s, TABLE(s.cuotas) c, Tabla_InfoCuota q WHERE REF(q) = c.cuotaPagada AND s.id = :id ORDER BY q.ejercicio", {"id": id_socio})
+                filas = cursor.fetchall()
+                              
+                rellenar_tabla(self, self.tabla_cuotas, filas)
+                self.tabla_cuotas.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
                 
-    #             if resultado == 0:
-    #                 QtWidgets.QMessageBox.information(self, "Éxito", "Socio borrado correctamente")
-    #                 self.cargar_tablaSocios()
-    #             else:
-    #                 QtWidgets.QMessageBox.critical(self, "Error", "No se pudo borrar el socio")
+            except Exception as e:
+                print(f"Error al cargar datos: {e}")
+            finally:
+                cursor.close()
+                conn.close()
                 
-    #         except Exception as e:
-    #             print(f"Error al cargar datos: {e}")
-    #         finally:
-    #             cursor.close()
-    #             conn.close()
+    def borrar_socio(self):
+        selected = self.tabla_socios.currentRow()
+        if selected == -1:
+            return
+        
+        id_socio = self.tabla_socios.item(selected, 0).text()
+        
+        db = DataBase()
+        conn = db.conectar()
+        cursor = None
+        
+        if conn:
+            try:
+                cursor = conn.cursor()
+                resultado = cursor.callfunc("funcionesRefugio.borrarSocio", int, [id_socio])
+                
+                if resultado == 0:
+                    QtWidgets.QMessageBox.information(self, "Éxito", "Socio borrado correctamente")
+                    self.cargar_tablaSocios()
+                else:
+                    QtWidgets.QMessageBox.critical(self, "Error", "No se pudo borrar el socio")
+                
+            except Exception as e:
+                print(f"Error al cargar datos: {e}")
+            finally:
+                cursor.close()
+                conn.close()
     
-    # def pagar_cuota(self):
-    #     selected = self.tabla_socios.currentRow()
-    #     if selected == -1:
-    #         return
+    def pagar_cuota(self):
+        selected_socio = self.tabla_socios.currentRow()
+        selected_cuota = self.tabla_cuotas.currentRow()
+        if selected_socio == -1 or selected_cuota == -1:
+            return
         
-    #     id_socio = self.tabla_socios.item(selected, 0).text()
+        id_socio = self.tabla_socios.item(selected_socio, 0).text()
+        id_cuota = self.tabla_cuotas.item(selected_cuota, 0).text()
+
+        db = DataBase()
+        conn = db.conectar()
+        cursor = None
         
-    #     db = DataBase()
-    #     conn = db.conectar()
-    #     cursor = None
-        
-    #     if conn:
-    #         try:
-    #             cursor = conn.cursor()
-    #             resultado = cursor.callfunc("funcionesRefugio.asignarCuotaSocio", int, [id_socio])
+        if conn:
+            try:
+                cursor = conn.cursor()
+                resultado = cursor.callfunc("funcionesRefugio.asignarCuotaSocio", int, [id_socio, id_cuota, 'S'])
                 
-    #             if resultado == 0:
-    #                 QtWidgets.QMessageBox.information(self, "Éxito", "Socio borrado correctamente")
-    #                 self.cargar_tablaSocios()
-    #             else:
-    #                 QtWidgets.QMessageBox.critical(self, "Error", "No se pudo borrar el socio")
+                if resultado == 0:
+                    QtWidgets.QMessageBox.information(self, "Éxito", "Cuota pagada correctamente")
+                    self.cargar_tablaSocios()
+                else:
+                    QtWidgets.QMessageBox.critical(self, "Error", "No se pudo pagar la cuota")
                 
-    #         except Exception as e:
-    #             print(f"Error al cargar datos: {e}")
-    #         finally:
-    #             cursor.close()
-    #             conn.close()
+            except Exception as e:
+                print(f"Error al cargar datos: {e}")
+            finally:
+                cursor.close()
+                conn.close()
         
             
 class DialogoSocio(QtWidgets.QDialog):
@@ -127,13 +155,6 @@ class DialogoSocio(QtWidgets.QDialog):
             self.input_id.setVisible(False)
             self.btn_socio.setText("Dar de Alta") 
             self.btn_socio.clicked.connect(self.insertar_socio)
-
-        elif self.modo == "editar":
-            self.titulo.setText("Modificar Socio")
-            # En editar, el ID se ve pero no se toca
-            self.label_id.setVisible(False)
-            self.input_id.setVisible(False)
-            self.btn_socio.setText("Editar")
 
         elif self.modo == "buscar":
             self.titulo.setText("Buscar Socio")

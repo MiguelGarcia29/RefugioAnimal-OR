@@ -9,6 +9,8 @@ class AdopcionWindow(QtWidgets.QMainWindow):
         # 1. Cargamos la interfaz
         uic.loadUi("vistas/adopcion.ui", self)
                 
+        self.cargar_tablaAdopcion()
+                
         self.btn_adoptar.clicked.connect(self.adoptar_animal)
         self.btn_buscar.clicked.connect(lambda: abrir_animal(self, "buscar", self.tabla_adopcion))
         

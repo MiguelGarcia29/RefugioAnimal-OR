@@ -9,6 +9,10 @@ class VacunacionWindow(QtWidgets.QMainWindow):
         super().__init__()
         # 1. Cargamos la interfaz
         uic.loadUi("vistas/vacunacion.ui", self)
+        
+        self.cargar_tablaVacunaAnimal()
+        self.cargar_tablaVacuna()
+        self.cargar_tablaDosis()
                 
         self.btn_anadir.clicked.connect(self.abrir_vacunacion)
         self.btn_buscar.clicked.connect(lambda: abrir_animal(self, "buscar", self.tabla_vacunacionAnimales))

@@ -31,15 +31,6 @@ class MainApp(QtWidgets.QMainWindow):
 
         # 5. Vista inicial
         self.stackedWidget.setCurrentWidget(self.pestana_animales)
-        
-        self.cargar_todo()
-        
-    def cargar_todo(self):
-        animales.AnimalesWindow.cargar_tablaAnimal(self.pestana_animales)
-        socios.SociosWindow.cargar_tablaSocios(self.pestana_socios)
-        adopcion.AdopcionWindow.cargar_tablaAdopcion(self.pestana_adopcion)
-        vacunacion.VacunacionWindow.cargar_tablaVacuna(self.pestana_vacunacion)
-        vacunacion.VacunacionWindow.cargar_tablaVacunaAnimal(self.pestana_vacunacion)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

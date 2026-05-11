@@ -134,13 +134,18 @@
        </item>
        <item>
         <widget class="QFrame" name="frame_2">
+         <property name="styleSheet">
+          <string notr="true">.QFrame{
+	background-color: white;
+}</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Plain</enum>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="6,2,1">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -272,6 +277,95 @@ QTableWidget::item {
            </widget>
           </item>
           <item>
+           <widget class="QFrame" name="frame_3">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <property name="spacing">
+              <number>25</number>
+             </property>
+             <property name="topMargin">
+              <number>50</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="font">
+                <font>
+                 <pointsize>9</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>CUOTAS:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTableWidget" name="tabla_cuotas">
+               <property name="styleSheet">
+                <string notr="true">QTableWidget {
+	background-color:white;
+    gridline-color: #dcdcdc; /* Color de las líneas de la cuadrícula */
+    border: none;
+    alternate-background-color: #efefef; /* Color de las filas grises */
+    selection-background-color: #a8d5a2; /* Color cuando seleccionas una fila */
+    color: #333333; /* Color del texto de los datos */
+}
+
+/* Estilo de los encabezados (La parte superior verde) */
+QHeaderView::section {
+    background-color: #004d00; /* Verde oscuro como el de tu banner */
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    border: none;
+    border-right: 1px solid #1a5e1a; /* Línea divisoria entre columnas */
+    height: 30px;
+}
+
+/* Estilo para que los datos se vean más limpios */
+QTableWidget::item {
+    padding: 5px;
+}</string>
+               </property>
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
+               </property>
+               <property name="alternatingRowColors">
+                <bool>true</bool>
+               </property>
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
+               </property>
+               <attribute name="verticalHeaderVisible">
+                <bool>false</bool>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string>Ejercicio</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Importe</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Pagada</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
            <widget class="QFrame" name="frame_busqueda">
             <property name="styleSheet">
              <string notr="true">#frame_busqueda{
@@ -392,18 +486,7 @@ QPushButton:hover {
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_editar">
-               <property name="text">
-                <string>Modificar Socio</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>img/editar.png</normaloff>img/editar.png</iconset>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_borrar">
+              <widget class="QPushButton" name="btn_eliminar">
                <property name="text">
                 <string>Baja Socio</string>
                </property>

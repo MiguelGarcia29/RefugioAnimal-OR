@@ -46,10 +46,14 @@ class DialogoAnimal(QtWidgets.QDialog):
 
         elif self.modo == "editar":
             self.titulo.setText("Editar Animal")
-            # En editar, el ID se ve pero no se toca
-            # self.input_id.setVisible(False)
+            self.label_nacimiento.setVisible(False)
+            self.input_fechaNacimiento.setVisible(False)
+            self.label_adopcion.setVisible(False)
+            self.input_fechaAdopcion.setVisible(False)
             self.input_adoptado.setVisible(False)
+            self.input_especie.setVisible(False)
             self.btn_animal.setText("Editar")
+            self.btn_animal.clicked.connect(self.editar_animal)
 
         elif self.modo == "buscar":
             self.titulo.setText("Buscar Animal")
@@ -128,6 +132,67 @@ class DialogoAnimal(QtWidgets.QDialog):
 
             except Exception as e:
                 print("Error BD:", e)
+            finally:
+                cursor.close()
+                conn.close()
+                
+    def editar_animal(self):
+        datos = self.obtener_datos()
+
+        db = DataBase()
+        conn = db.conectar()
+
+        if conn:
+            try:
+                cursor = conn.cursor()
+
+                # 1. Obtener datos actuales del animal (fallback)
+                cursor.execute("SELECT nombre, id_raza, color, sexo, caracteristicas, fechaLlegada, fechaNacimiento, fechaAdopcion FROM Table_Animal WHERE id = :id", {"id": datos["id"]})
+
+                actual = cursor.fetchone()
+
+                if not actual:
+                    QtWidgets.QMessageBox.warning(self, "Error", "Animal no encontrado")
+                    return
+
+                # 2. Mezclar valores (si viene vacío, usa el actual)
+                nombre = datos["nombre"] or actual[0]
+                id_raza = datos["id_raza"] or actual[1]
+                color = datos["color"] or actual[2]
+                sexo = datos["sexo"] or actual[3]
+                caracteristicas = datos["caracteristicas"] or actual[4]
+                fecha_llegada = actual[5]
+                fecha_nacimiento = actual[6]
+                fecha_adopcion = actual[7]
+
+                # 3. Llamar a PL/SQL
+                resultado = cursor.callfunc(
+                    "funcionesRefugio.actualizarAnimal",
+                    int,
+                    [
+                        int(datos["id"]),
+                        nombre,
+                        fecha_nacimiento,
+                        id_raza,
+                        color,
+                        sexo,
+                        fecha_llegada,
+                        caracteristicas,
+                        fecha_adopcion
+                    ]
+                )
+
+                # 4. Resultado
+                if resultado == 0:
+                    QtWidgets.QMessageBox.information(self, "Éxito", "Animal actualizado correctamente")
+                    self.parent().cargar_tablaAnimal()
+                    self.accept()
+                else:
+                    QtWidgets.QMessageBox.critical(self, "Error", "No se pudo actualizar el animal")
+
+            except Exception as e:
+                print("Error:", e)
+
             finally:
                 cursor.close()
                 conn.close()
