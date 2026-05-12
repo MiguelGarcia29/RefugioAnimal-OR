@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1105</width>
+    <height>838</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">.QFrame {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+	background-color: white;
+}</string>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="8">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,8">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="frame_superior">
+         <property name="styleSheet">
+          <string notr="true">#frame_superior{
+	background-color: #004d00
+}
+
+#titulo{
+	color: white; 
+	font-size: 20px; 
+	font-weight: bold; 
+}</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="minimumSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>40</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>img/corazon2.webp</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="titulo">
+            <property name="text">
+             <string>Adopción</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>799</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_2">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QTableWidget" name="tabla_adopcion">
+            <property name="styleSheet">
+             <string notr="true">QTableWidget {
+	background-color:white;
+    gridline-color: #dcdcdc; /* Color de las líneas de la cuadrícula */
+    border: none;
+    alternate-background-color: #efefef; /* Color de las filas grises */
+    selection-background-color: #a8d5a2; /* Color cuando seleccionas una fila */
+    color: #333333; /* Color del texto de los datos */
+}
+
+/* Estilo de los encabezados (La parte superior verde) */
+QHeaderView::section {
+    background-color: #004d00; /* Verde oscuro como el de tu banner */
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    border: none;
+    border-right: 1px solid #1a5e1a; /* Línea divisoria entre columnas */
+    height: 30px;
+}
+
+/* Estilo para que los datos se vean más limpios */
+QTableWidget::item {
+    padding: 5px;
+}</string>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>ID</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Nombre</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Sexo</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Fecha Nacimiento</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Color</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Especie</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Raza</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Fecha Llegada</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Fecha Adopcion</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Características</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame_8">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <property name="spacing">
+              <number>50</number>
+             </property>
+             <item>
+              <spacer name="horizontalSpacer_12">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_adoptar">
+               <property name="styleSheet">
+                <string notr="true">/* Estilo general del botón en estado normal */
+QPushButton {
+    background-color: #2e7d32; /* Un verde más suave y oscuro, tipo &quot;Forest Green&quot; */
+    color: white; /* Texto blanco */
+    border: 1px solid #1b5e20; /* Un borde sutil aún más oscuro */
+    border-radius: 8px; /* Bordes redondeados modernos */
+    font-size: 14px;
+    font-weight: bold; /* Texto en negrita */
+    padding-top: 8px; /* &quot;Aire&quot; arriba y abajo */
+    padding-bottom: 8px;
+    padding-left: 20px; /* &quot;Aire&quot; a los lados */
+    padding-right: 20px;
+    min-width: 100px; /* Ancho mínimo para que no se encoja mucho */
+}
+
+/* Efecto al pasar el ratón (Hover) */
+QPushButton:hover {
+    background-color: #388e3c; /* Un verde un poco más claro al hacer hover */
+    border: 1px solid #2e7d32;
+}
+
+/* Efecto al hacer clic (Pressed) */
+QPushButton:pressed {
+    background-color: #1b5e20; /* Más oscuro aún cuando está pulsado */
+    padding-top: 10px; /* Efecto sutil de presión */
+    padding-bottom: 6px;
+}</string>
+               </property>
+               <property name="text">
+                <string>Adoptar</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_buscar">
+               <property name="styleSheet">
+                <string notr="true">/* Estilo general del botón en estado normal */
+QPushButton {
+    background-color: #2e7d32; /* Un verde más suave y oscuro, tipo &quot;Forest Green&quot; */
+    color: white; /* Texto blanco */
+    border: 1px solid #1b5e20; /* Un borde sutil aún más oscuro */
+    border-radius: 8px; /* Bordes redondeados modernos */
+    font-size: 14px;
+    font-weight: bold; /* Texto en negrita */
+    padding-top: 8px; /* &quot;Aire&quot; arriba y abajo */
+    padding-bottom: 8px;
+    padding-left: 20px; /* &quot;Aire&quot; a los lados */
+    padding-right: 20px;
+    min-width: 100px; /* Ancho mínimo para que no se encoja mucho */
+}
+
+/* Efecto al pasar el ratón (Hover) */
+QPushButton:hover {
+    background-color: #388e3c; /* Un verde un poco más claro al hacer hover */
+    border: 1px solid #2e7d32;
+}
+
+/* Efecto al hacer clic (Pressed) */
+QPushButton:pressed {
+    background-color: #1b5e20; /* Más oscuro aún cuando está pulsado */
+    padding-top: 10px; /* Efecto sutil de presión */
+    padding-bottom: 6px;
+}</string>
+               </property>
+               <property name="text">
+                <string>Buscar</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_13">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

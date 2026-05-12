@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>650</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,6,2">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="frame_superior">
+     <property name="styleSheet">
+      <string notr="true">#frame_superior{
+	background-color: #004d00
+}
+
+#titulo{
+	color: white; 
+	font-size: 20px; 
+	font-weight: bold; 
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="leftMargin">
+       <number>15</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="titulo">
+        <property name="text">
+         <string>Crear Cuota</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>457</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="frame_2">
+     <property name="styleSheet">
+      <string notr="true">.QFrame{
+	background-color:white;
+}
+
+.QLabel{
+	color: #1b5e20;
+}
+
+/* --- Estilo Base para TODOS los inputs (Linea 2, Linea 3, Linea 4, Linea 5, Linea 6) --- */
+QLineEdit, QComboBox, QDateEdit, QPlainTextEdit {
+    border: 2px solid #1b5e20; /* El borde verde oscuro */
+    border-radius: 10px;        /* Bordes bien redondeados */
+    padding: 10px 15px;         /* Aire dentro de la caja */
+    color: #333333;             /* Color del texto que escribe el usuario */
+    font-size: 14px;
+}
+
+/* Efecto al pasar el ratón (Hover) y al hacer clic (Focus) */
+QLineEdit:hover, QComboBox:hover, QDateEdit:hover, QPlainTextEdit:focus {
+    background-color: #f9f9f9; /* Un gris casi imperceptible */
+    border-color: #4caf50;      /* Verde más brillante */
+}
+
+/* --- Estilo para el texto de ayuda (Placeholder gris) --- */
+/* (Para QLineEdit, QDateEdit y QPlainTextEdit) */
+QLineEdit::placeholder, QPlainTextEdit::placeholder {
+    color: #888888; /* Gris suave */
+    font-style: italic; /* Un toque de estilo */
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 30px;
+}
+
+/* Estilo de la flechita (puedes usar una imagen o un caracter) */
+QComboBox::down-arrow {
+    width: 12px;
+    height: 12px;
+}
+
+/* --- Título &quot;Sexo del animal:&quot; --- */
+QLabel#lbl_sexo_titulo {
+    color: #1b5e20;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* --- Estilo para los Checkboxes (Macho / Hembra) --- */
+QCheckBox {
+    color: #333333;
+    font-size: 14px;
+    spacing: 10px; /* Espacio entre el cuadro y el texto */
+}
+
+/* Estilo del cuadradito del Checkbox */
+QCheckBox::indicator {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #1b5e20;
+    border-radius: 5px;
+    background-color: white;
+}
+
+/* Cuando está marcado (Checked) */
+QCheckBox::indicator:checked {
+    background-color: #1b5e20; /* Fondo verde completo */
+}
+
+/* Estilo del botón desplegable (la zona de clic) */
+QDateEdit::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 275px; /* Lo hacemos ancho para que sea fácil de clicar */
+    border-left: 1px solid #dcdcdc; /* Una rayita separadora */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+	border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+/* Cambiar la flecha por un &quot;icono&quot; visual */
+QDateEdit::down-arrow {
+    image: url(:/iconos/calendario.png);/* Icono */
+    width: 30px;
+    height: 30px;
+}
+
+/* Estilo general del CheckBox (el texto y el espacio) */
+QCheckBox {
+    color: #333333;
+    font-size: 14px;
+    font-weight: 500;
+    spacing: 8px; /* Espacio entre el cuadro y el texto &quot;Macho/Hembra&quot; */
+    padding: 5px;
+}
+
+/* 1. El cuadro (indicador) en estado normal */
+QCheckBox::indicator {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #1b5e20; /* Borde verde oscuro igual que los inputs */
+    border-radius: 6px;        /* Bordes suavemente redondeados */
+    background-color: white;
+}
+
+/* 2. Cuando pasas el ratón por encima (Hover) */
+QCheckBox::indicator:hover {
+    border-color: #4caf50;      /* Verde más claro */
+    background-color: #f1f8e9; /* Un toque de fondo verdoso muy suave */
+}
+
+/* 3. Cuando está MARCADO (Checked) */
+QCheckBox::indicator:checked {
+    background-color: #1b5e20; /* Fondo verde sólido */
+    border-color: #1b5e20;
+    /* Aquí definimos el &quot;check&quot; blanco. 
+       Si no tienes una imagen, podemos usar un estilo de borde para simularlo, 
+       pero lo mejor es usar un icono PNG blanco */
+    image: url(assets/check_blanco.png); 
+}
+
+/* 4. Cuando está marcado y pasas el ratón */
+QCheckBox::indicator:checked:hover {
+    background-color: #2e7d32;
+    border-color: #2e7d32;
+}
+
+/* 5. Estado deshabilitado (por si acaso) */
+QCheckBox:disabled {
+    color: #aaaaaa;
+}
+
+QCheckBox::indicator:disabled {
+    border-color: #cccccc;
+    background-color: #eeeeee;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <property name="topMargin">
+       <number>15</number>
+      </property>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_importe">
+        <property name="text">
+         <string>Importe:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="input_importe"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_ejercicio">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>75</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Ejercicio:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="input_ejercicio">
+        <property name="maximumSize">
+         <size>
+          <width>550</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="styleSheet">
+      <string notr="true">.QFrame{
+	background-color: white;
+}
+
+/* Estilo general del botón en estado normal */
+QPushButton {
+    background-color: #2e7d32; /* Un verde más suave y oscuro, tipo &quot;Forest Green&quot; */
+    color: white; /* Texto blanco */
+    border: 1px solid #1b5e20; /* Un borde sutil aún más oscuro */
+    border-radius: 8px; /* Bordes redondeados modernos */
+    font-size: 14px;
+    font-weight: bold; /* Texto en negrita */
+    padding-top: 8px; /* &quot;Aire&quot; arriba y abajo */
+    padding-bottom: 8px;
+    padding-left: 20px; /* &quot;Aire&quot; a los lados */
+    padding-right: 20px;
+    min-width: 100px; /* Ancho mínimo para que no se encoja mucho */
+}
+
+/* Efecto al pasar el ratón (Hover) */
+QPushButton:hover {
+    background-color: #388e3c; /* Un verde un poco más claro al hacer hover */
+    border: 1px solid #2e7d32;
+}
+
+/* Efecto al hacer clic (Pressed) */
+QPushButton:pressed {
+    background-color: #1b5e20; /* Más oscuro aún cuando está pulsado */
+    padding-top: 10px; /* Efecto sutil de presión */
+    padding-bottom: 6px;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>207</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_cuota">
+        <property name="text">
+         <string>Confirmar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>207</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
