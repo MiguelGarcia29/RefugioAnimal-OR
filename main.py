@@ -1,5 +1,5 @@
 import sys
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtGui  
 import vistas.animales as animales
 import vistas.socios as socios
 import vistas.adopcion as adopcion

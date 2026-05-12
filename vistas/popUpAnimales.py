@@ -15,12 +15,22 @@ class DialogoAnimal(QtWidgets.QDialog):
         
         self.modo = modo
         self.tabla_destino = tabla_destino
-        self.id_animal_editar = id_animal 
         
+        # 1. Cargas iniciales de datos
+        cargar_especies(self)
+                
+        # 2. Rellenar datos si es edición
+        if self.modo == "editar" and isinstance(id_animal, dict):
+            self.id_animal_editar = id_animal["id"]
+            self.rellenar_para_editar(id_animal)
+        else:
+            self.id_animal_editar = id_animal
+            cargar_razas(self) # Si es añadir, cargamos razas por defecto
+
         self.configurar_interfaz()
         
-        cargar_especies(self)
-        cargar_razas(self)
+        # 3. CONECTAR SEÑALES AL FINAL 
+        # (Así el autorrelleno no dispara eventos accidentales)
         self.input_especie.currentIndexChanged.connect(lambda: cargar_razas(self))
         self.input_raza.currentIndexChanged.connect(lambda: on_raza_changed(self))
         
@@ -33,6 +43,61 @@ class DialogoAnimal(QtWidgets.QDialog):
         # Fijar en hoy la fecha de los calendarios
         self.input_fechaNacimiento.calendarWidget().setSelectedDate(QDate.currentDate())
         self.input_fechaAdopcion.calendarWidget().setSelectedDate(QDate.currentDate())
+        
+    def rellenar_campos(self, datos):
+        # Campos de texto
+        self.input_id.setText(datos["id"])
+        self.input_nombre.setText(datos["nombre"])
+        self.input_color.setText(datos["color"])
+        self.input_caracteristicas.setText(datos["caracteristicas"])
+
+        # Sexo (buscar por el texto: Macho/Hembra o por el valor M/H)
+        index_sexo = self.input_sexo.findText(datos["sexo"])
+        if index_sexo != -1:
+            self.input_sexo.setCurrentIndex(index_sexo)
+
+        # Especie y Raza
+        index_esp = self.input_especie.findText(datos["especie"])
+        if index_esp != -1:
+            self.input_especie.setCurrentIndex(index_esp)
+            # Forzamos la carga de razas de esa especie antes de buscar la raza
+            cargar_razas(self) 
+            index_raza = self.input_raza.findText(datos["raza"])
+            if index_raza != -1:
+                self.input_raza.setCurrentIndex(index_raza)
+
+        # Fecha de Nacimiento (Si no la ocultas en editar)
+        if "fechaNac" in datos:
+            fecha = QDate.fromString(datos["fechaNac"], "dd/MM/yyyy")
+            self.input_fechaNacimiento.setDate(fecha)
+    
+    # --- Dentro de DialogoAnimal ---
+
+    def rellenar_para_editar(self, datos):
+        # 1. Premarcar el SEXO
+        # findText busca el índice donde dice "Macho" o "Hembra"
+        index_sexo = self.input_sexo.findText(datos["sexo"])
+        if index_sexo != -1:
+            self.input_sexo.setCurrentIndex(index_sexo)
+
+        # 2. Premarcar la ESPECIE
+        index_esp = self.input_especie.findText(datos["especie"])
+        if index_esp != -1:
+            self.input_especie.setCurrentIndex(index_esp)
+            
+            # IMPORTANTE: Al cambiar la especie, el combo de razas se suele limpiar.
+            # Debemos forzar la carga de razas de esa especie antes de buscar la raza.
+            cargar_razas(self) 
+            
+            # 3. Premarcar la RAZA
+            index_raza = self.input_raza.findText(datos["raza"])
+            if index_raza != -1:
+                self.input_raza.setCurrentIndex(index_raza)
+
+        # 4. Otros campos
+        self.input_nombre.setText(datos["nombre"])
+        self.input_color.setText(datos["color"])
+        self.input_caracteristicas.setText(datos["caracteristicas"])
         
     def configurar_interfaz(self):
         if self.modo == "añadir":
@@ -55,7 +120,6 @@ class DialogoAnimal(QtWidgets.QDialog):
             self.label_adopcion.setVisible(False)
             self.input_fechaAdopcion.setVisible(False)
             self.input_adoptado.setVisible(False)
-            self.input_especie.setVisible(False)
             self.btn_animal.setText("Editar")
             self.btn_animal.clicked.connect(self.editar_animal)
             

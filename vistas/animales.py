@@ -70,9 +70,15 @@ class AnimalesWindow(QtWidgets.QMainWindow):
 def preparar_edicion(self):
     selected = self.tabla_animales.currentRow()
     if selected != -1:
-        # El ID está en la columna 0 (aunque esté oculta)
-        id_animal = self.tabla_animales.item(selected, 0).text()
-        # Llamamos a abrir_animal pasando el ID
-        abrir_animal(self, "editar", self.tabla_animales, id_animal)
+        datos = {
+            "id": self.tabla_animales.item(selected, 0).text(),
+            "nombre": self.tabla_animales.item(selected, 1).text(),
+            "sexo": self.tabla_animales.item(selected, 2).text(), # "Macho" o "Hembra"
+            "color": self.tabla_animales.item(selected, 4).text(),
+            "especie": self.tabla_animales.item(selected, 5).text(), # Texto: "Perro"
+            "raza": self.tabla_animales.item(selected, 6).text(),    # Texto: "Labrador"
+            "caracteristicas": self.tabla_animales.item(selected, 9).text()
+        }
+        abrir_animal(self, "editar", self.tabla_animales, datos)
     else:
-        QtWidgets.QMessageBox.warning(self, "Atención", "Por favor, selecciona un animal de la tabla.")
+        QtWidgets.QMessageBox.warning(self, "Atención", "Por favor, selecciona un animal.")

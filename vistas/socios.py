@@ -20,6 +20,8 @@ class SociosWindow(QtWidgets.QMainWindow):
         self.btn_nuevaCuota.clicked.connect(self.abrir_cuota)
         self.btn_pagarCuota.clicked.connect(self.pagar_cuota)
         self.btn_eliminar.clicked.connect(self.borrar_socio)
+        self.btn_ModificarSocio.clicked.connect(lambda:preparar_edicion(self))
+
         
     def abrir_socio(self, modo):
         ventana = DialogoSocio(modo, self)
@@ -139,12 +141,16 @@ class SociosWindow(QtWidgets.QMainWindow):
         
             
 class DialogoSocio(QtWidgets.QDialog):
-    def __init__(self, modo = "añadir", parent = None):
+    def __init__(self, modo = "añadir", parent = None, datos=None):
         super().__init__(parent)
         uic.loadUi("vistas/popUpSocios.ui", self) # Carga tu diseño bonito
         
         self.modo = modo
+        self.datos_iniciales = datos
         self.configurar_interfaz()
+            
+        if self.modo == "modificar" and self.datos_iniciales:
+            self.rellenar_campos()
             
         # Fijar en hoy la fecha de los calendarios
         self.input_fechaNacimiento.calendarWidget().setSelectedDate(QDate.currentDate())
@@ -164,6 +170,69 @@ class DialogoSocio(QtWidgets.QDialog):
             self.label_fechaNacimiento.setVisible(False)
             self.input_fechaNacimiento.setVisible(False)
             self.btn_socio.clicked.connect(self.buscar_socio)
+            
+        elif self.modo == "modificar":
+            self.titulo.setText("Modificar Socio")
+            self.btn_socio.setText("Guardar Cambios")
+            self.btn_socio.clicked.connect(self.actualizar_socio)
+            
+            # Bloqueamos los campos solicitados
+            self.input_id.setEnabled(False)
+            self.input_dni.setEnabled(False)
+            self.input_fechaNacimiento.setEnabled(False)
+    
+    def rellenar_campos(self):
+        # Rellenamos los inputs con los datos de la fila seleccionada
+        self.input_id.setText(self.datos_iniciales["id"])
+        self.input_nombre.setText(self.datos_iniciales["nombre"])
+        self.input_dni.setText(self.datos_iniciales["dni"])
+        self.input_direccion.setText(self.datos_iniciales["direccion"])
+        self.input_telefono.setText(self.datos_iniciales["telefono"])
+        
+        # Convertimos la fecha de string (DD/MM/YY) a QDate
+        fecha_qdate = QDate.fromString(self.datos_iniciales["fecha"], "dd/MM/yy")
+        self.input_fechaNacimiento.setDate(fecha_qdate)
+
+    def actualizar_socio(self):
+        # 1. Recogemos los datos de los inputs (incluidos los bloqueados)
+        datos = self.obtener_datos()
+        
+        # 2. Validamos (principalmente los campos editables)
+        if not self.validar_datos(datos):
+            return
+
+        db = DataBase()
+        conn = db.conectar()
+        if conn:
+            try:
+                cursor = conn.cursor()
+                
+                # 3. Llamada a la función PL/SQL
+                # El orden debe coincidir con: p_id, p_nombre, p_fechaNacimiento, p_dni, p_direccion, p_telefono
+                resultado = cursor.callfunc(
+                    "funcionesRefugio.actualizarSocio", 
+                    int, 
+                    [
+                        int(datos["id"]),           # p_id (NUMBER)
+                        datos["nombre"],            # p_nombre (VARCHAR2)
+                        datos["fechaNacimiento"],   # p_fechaNacimiento (DATE)
+                        datos["dni"],               # p_dni (VARCHAR2)
+                        datos["direccion"],         # p_direccion (VARCHAR2)
+                        datos["telefono"]           # p_telefono (VARCHAR2)
+                    ]
+                )
+
+                if resultado == 0:
+                    QtWidgets.QMessageBox.information(self, "Éxito", "Socio actualizado correctamente")
+                    self.accept() # Cierra el diálogo y devuelve QDialog.Accepted
+                else:
+                    QtWidgets.QMessageBox.critical(self, "Error", f"Código de error BD: {resultado}")
+                    
+            except Exception as e:
+                QtWidgets.QMessageBox.critical(self, "Error de Sistema", f"Error al actualizar: {e}")
+            finally:
+                cursor.close()
+                conn.close()
             
     def obtener_datos(self):
         return {
@@ -326,3 +395,24 @@ class DialogoCuota(QtWidgets.QDialog):
             finally:
                 cursor.close()
                 conn.close()
+
+def preparar_edicion(self):
+    selected = self.tabla_socios.currentRow()
+    if selected == -1:
+        QtWidgets.QMessageBox.warning(self, "Aviso", "Selecciona un socio para modificar")
+        return
+    
+    # Extraemos los datos de la tabla (ajusta los índices según tus columnas)
+    datos_socio = {
+        "id": self.tabla_socios.item(selected, 0).text(),
+        "nombre": self.tabla_socios.item(selected, 1).text(),
+        "dni": self.tabla_socios.item(selected, 2).text(),
+        "direccion": self.tabla_socios.item(selected, 3).text(),
+        "telefono": self.tabla_socios.item(selected, 4).text(),
+        "fecha": self.tabla_socios.item(selected, 5).text() # Formato DD/MM/YY
+    }
+
+    # Abrimos el diálogo en modo modificar y pasamos los datos
+    ventana = DialogoSocio(modo="modificar", parent=self, datos=datos_socio)
+    if ventana.exec_() == QtWidgets.QDialog.Accepted:
+        self.cargar_tablaSocios()
